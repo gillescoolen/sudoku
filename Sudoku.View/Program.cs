@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sudoku.Console
+namespace Sudoku.View
 {
     class Program
     {
