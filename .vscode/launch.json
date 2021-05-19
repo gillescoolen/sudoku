@@ -10,9 +10,9 @@
       "request": "launch",
       "preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/Sudoku.Console/bin/Debug/net5.0/Sudoku.Console.dll",
+      "program": "${workspaceFolder}/Sudoku.View/bin/Debug/net5.0/Sudoku.View.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/Sudoku.Console",
+      "cwd": "${workspaceFolder}/Sudoku.View",
       // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
       "console": "internalConsole",
       "stopAtEntry": false

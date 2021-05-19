@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/Sudoku.Console/Sudoku.Console.csproj",
+        "${workspaceFolder}/Sudoku.View/Sudoku.View.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/Sudoku.Console/Sudoku.Console.csproj",
+        "${workspaceFolder}/Sudoku.View/Sudoku.View.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -32,7 +32,7 @@
       "args": [
         "watch",
         "run",
-        "${workspaceFolder}/Sudoku.Console/Sudoku.Console.csproj",
+        "${workspaceFolder}/Sudoku.View/Sudoku.View.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
