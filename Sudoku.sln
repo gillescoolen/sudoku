@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Domain", "Sudoku.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.View", "Sudoku.View\Sudoku.View.csproj", "{8392EAF7-0C0C-452B-9ADC-A9032EB6AE22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Persistence", "Sudoku.Persistence\Sudoku.Persistence.csproj", "{A047A898-442C-4095-8E58-C67B9FD7F8E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku.Parser", "Sudoku.Parser\Sudoku.Parser.csproj", "{31DF490A-E6E2-46C3-89EA-939C8313ADEF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,5 +58,17 @@ Global
 		{A047A898-442C-4095-8E58-C67B9FD7F8E4}.Release|x64.Build.0 = Release|Any CPU
 		{A047A898-442C-4095-8E58-C67B9FD7F8E4}.Release|x86.ActiveCfg = Release|Any CPU
 		{A047A898-442C-4095-8E58-C67B9FD7F8E4}.Release|x86.Build.0 = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|x64.Build.0 = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Debug|x86.Build.0 = Debug|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|x64.ActiveCfg = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|x64.Build.0 = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|x86.ActiveCfg = Release|Any CPU
+		{31DF490A-E6E2-46C3-89EA-939C8313ADEF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
