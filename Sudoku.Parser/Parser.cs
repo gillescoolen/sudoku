@@ -1,5 +1,5 @@
-﻿using Sudoku.Domain
-;
+﻿using Sudoku.Domain;
+using Sudoku.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,8 @@ namespace Sudoku.Parser
             string gameString = System.IO.File.ReadAllText(filePath);
 
             Console.WriteLine(gameString);
-            var game = new Game();
+            Cell[] array = new Cell[] { new Cell(1, 1, new Position(1, 1, 1)), new Cell(1, 1, new Position(1, 1, 1)) };
+            var game = new Game(array);
 
 
             return game;
