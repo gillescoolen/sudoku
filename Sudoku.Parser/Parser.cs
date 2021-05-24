@@ -13,7 +13,6 @@ namespace Sudoku.Parser
         {
             string gameString = System.IO.File.ReadAllText(filePath);
 
-            Console.WriteLine(gameString);
             Cell[] array = new Cell[] { new Cell(1, 1, new Position(1, 1, 1)), new Cell(1, 1, new Position(1, 1, 1)) };
             var game = new Game(array);
 

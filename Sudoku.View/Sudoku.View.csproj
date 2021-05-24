@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Sudoku.Domain\Sudoku.Domain.csproj" />
+    <ProjectReference Include="..\Sudoku.Parser\Sudoku.Parser.csproj" />
   </ItemGroup>
 
 </Project>

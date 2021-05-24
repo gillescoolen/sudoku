@@ -1,14 +1,22 @@
 ﻿using System;
+using Sudoku.Parser;
 using Sudoku.Domain;
 namespace Sudoku.View
 {
     class Program
     {
+        public Game game;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            
-            Console.WriteLine("Hello World!");
+            new Program();
         }
+        private Program() {
+            Console.Title = "Sudoku";
+
+            var gameParser = new Parser.Parser();
+            game = gameParser.Read("./levels/puzzle.4x4");
+        }
+      
     }
 }

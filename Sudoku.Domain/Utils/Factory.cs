@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Domain.Utils
 {
-    class Factory
+    public class Factory
     {
+       
     }
 }
