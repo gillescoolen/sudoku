@@ -6,6 +6,7 @@ namespace Sudoku.View
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("Hello World!");
         }
     }
