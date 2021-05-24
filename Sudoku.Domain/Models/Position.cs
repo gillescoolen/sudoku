@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Domain.Models
 {
-    class Position
+    public class Position
     {
         private int X { get; set; }
         private int Y { get; set; }

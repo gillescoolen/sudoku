@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace Sudoku.Domain.Models
 {
-    class Cell
+    public class Cell
     {
+
         private int DefinitiveValue { get; set; }
         private int HintValue { get; set; }
         private Position Position { get; set; }
+
+        public Cell(int h, int d, Position p) {
+            DefinitiveValue = d;
+            HintValue = h;
+            Position = p;
+        }
 
         public bool IsValid()
         {
