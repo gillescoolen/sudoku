@@ -1,10 +1,10 @@
 @startuml sudoku
 
 ' State Pattern '
-abstract State {
-    - game: Game
-    + GetValue(): Integer
-    + SetValue(value: Integer)
+abstract IState {
+  - game: Game
+  + GetValue(): Integer
+  + SetValue(value: Integer)
 }
 
 class DefinitiveState {
@@ -17,22 +17,37 @@ class HintState {
   + SetValue(value: Integer)
 }
 
+class CorrectionState {
+  + GetValue(): Integer
+  + SetValue(value: Integer)
+}
+
 ' Visitor Pattern '
 interface Visitor {
-  + visitCell()
+  + visitCell(cell: Cell)
 }
 
 class ValidateVisitor {
-  + visitCell()
+  + visitCell(cell: Cell)
 }
 
 class Game {
-  - state: State
+  - state: IState
   - type: String
-  - cells: Cell[]
+  - components: Box[]
   + ChangeState()
   + UpdateCell(position: Position)
   + Solve()
+}
+
+interface ISudokuComponent {
+  + IsValid(): Boolean
+  + Accept(visitor: Visitor)
+}
+
+class Box {
+  - cells: Cell[]
+  + IsValid(): Boolean
 }
 
 class Cell {
@@ -41,13 +56,13 @@ class Cell {
   - position: Position
   + IsValid(): Boolean
   + GetValue(): Integer
+  + Accept(visitor: Visitor)
   + SetValue(value: Integer)
 }
 
 class Position {
   - x: Integer
   - y: Integer
-  - boxIndex: Integer
 }
 
 ' Factory and Factory Pattern '
@@ -93,14 +108,39 @@ class SudokuReader {
   - Start(type: string)
 }
 
+interface ISolutionStrategy {
+  + Solve(game: Game)
+}
+
+class BacktrackSolution {
+  + Solve(game: Game)
+}
+
+class BruteForceSolution {
+  + Solve(game: Game)
+}
+
 ' Relations '
-HintState --|> State
-DefinitiveState --|> State
+HintState --|> IState
+DefinitiveState --|> IState
+CorrectionState --|> IState
+
+BruteForceSolution --|> ISolutionStrategy
+BacktrackSolution --|> ISolutionStrategy
+
+ISolutionStrategy --- Game
+IState --- Game
 
 ValidateVisitor --|> Visitor
 
-Game *-- Cell
+Box --|> ISudokuComponent
+Cell --|> ISudokuComponent
+
+Game *-- Box
+Box *-- Cell
 Cell --- Position
+ISudokuComponent --> Visitor
+ISudokuComponent <-- Visitor
 
 SamuraiSudokuFactory --|> SudokuFactory
 JigsawSudokuFactory --|> SudokuFactory

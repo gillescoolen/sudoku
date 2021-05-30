@@ -1,17 +1,17 @@
 @startuml sudoku
 abstract Controller {
-  # Game: Game
+  # view: View
+  # game: Game
   {abstract} Update()
 }
 
 abstract View {
-  - _Inputs: Input[]
   + Inputs: IEnumerable<Input>
   {abstract} Render()
 }
 
 class GameController {
-  - Game: Game
+  - game: Game
   - view: View
   + GetCells(): Integer
   + ChangeCell(cell: Cell)
@@ -40,8 +40,11 @@ StartView --|> View
 
 StartController --|> Controller
 GameController --|> Controller
+StartController --- StartView
+GameController --- GameView
 
 GameView --- Character
 
 View --- Input
+View --- Controller
 @enduml
