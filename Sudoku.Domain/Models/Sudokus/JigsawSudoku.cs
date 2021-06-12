@@ -4,13 +4,13 @@ using Sudoku.Domain.Strategies;
 
 namespace Sudoku.Domain.Models.Sudokus
 {
-    public class NumberSamuraiSudoku : SudokuWrapper
+    public class JigsawSudoku : SudokuWrapper
     {
-        public NumberSamuraiSudoku(List<IComponent> sudokus) : base(sudokus)
+        public JigsawSudoku(List<IComponent> sudokus) : base(sudokus)
         {
         }
 
-        public override IStrategy GetSolveStratgy()
+        public override IStrategy GetSolverStrategy()
         {
             return new BackTrackingStrategy();
         }

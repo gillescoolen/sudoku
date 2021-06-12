@@ -20,7 +20,7 @@ namespace Sudoku.Domain.Utilities
         {
             sudokuWrapper = s;
             if (sudokuWrapper == null) return;
-            SetStrategy(s!.GetSolveStratgy());
+            SetStrategy(s!.GetSolverStrategy());
         }
 
         public SudokuWrapper? SudokuWrapper()

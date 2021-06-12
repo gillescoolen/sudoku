@@ -21,7 +21,7 @@ namespace Sudoku.Domain.Factories
             var boxs = GenerateBoxs(dividingNumber, data);
             var sudoku = new SudokuComposite(boxs);
 
-            return new NumberSudoku(new List<IComponent> { sudoku });
+            return new NormalSudoku(new List<IComponent> { sudoku });
         }
 
         private List<IComponent> GenerateBoxs(int size, string data)

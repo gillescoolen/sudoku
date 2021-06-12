@@ -17,15 +17,9 @@ namespace Sudoku.Domain.Strategies
             for (var i = 1; i <= maxValue; ++i)
             {
                 emptyCell.Value = $"{i}";
-
-                if (sudokuWrapper.ValidateSudoku(state) && Solve(sudokuWrapper, state))
-                {
-                    return true;
-                }
-
+                if (sudokuWrapper.ValidateSudoku(state) && Solve(sudokuWrapper, state)) return true;
                 emptyCell.Value = "0";
             }
-
             return false;
         }
     }

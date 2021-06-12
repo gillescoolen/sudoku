@@ -41,7 +41,7 @@ namespace Sudoku.Domain.Models
             return Sudokus.Where(s => s.GetChildren().Count() > 2).ToList();
         }
 
-        public abstract IStrategy GetSolveStratgy();
+        public abstract IStrategy GetSolverStrategy();
 
         public virtual bool ValidateSudoku(State state, bool setValid = false)
         {

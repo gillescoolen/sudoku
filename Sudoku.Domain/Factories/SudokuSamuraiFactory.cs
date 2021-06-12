@@ -41,7 +41,7 @@ namespace Sudoku.Domain.Factories
             var boxs = GenerateBoxs(amountOfBoxs, sizeOfSubSudokus, boards);
             var sudokus = GenerateSudokus(boxs);
 
-            return new NumberSamuraiSudoku(sudokus);
+            return new SamuraiSudoku(sudokus);
         }
 
         private string ReOrderString(string input, int subSudokuSize)
