@@ -20,24 +20,24 @@ namespace Sudoku.Terminal.Views.Visitors
             builder.Append(divider.Horizontal ? " - " : "|");
         }
 
-        public void Visit(Cell cell)
+        public void Visit(Square square)
         {
             var color = $"{Color.FromName("white").ToArgb():x6}";
-            var value = cell.CellLeaf.IsLocked || !cell.CellLeaf.Value.Equals("0") ? cell.CellLeaf.Value : cell.CellLeaf.HelpValue;
+            var value = square.SquareLeaf.IsLocked || !square.SquareLeaf.Value.Equals("0") ? square.SquareLeaf.Value : square.SquareLeaf.HelpValue;
             var content = value.Equals("0") || value.Equals("") ? "   " : $" {value} ";
 
-            if (cell.CellLeaf.IsLocked && !cell.CellLeaf.IsSelected || !cell.CellLeaf.Value.Equals("0") && !cell.CellLeaf.IsSelected)
+            if (square.SquareLeaf.IsLocked && !square.SquareLeaf.IsSelected || !square.SquareLeaf.Value.Equals("0") && !square.SquareLeaf.IsSelected)
             {
                 color = $"{Color.FromName("yellow").ToArgb():x6}";
             }
 
-            if (cell.CellLeaf.IsSelected)
+            if (square.SquareLeaf.IsSelected)
             {
                 color = $"{Color.FromName("cyan").ToArgb():x6}";
                 content = value.Equals("0") || value.Equals("") ? " x " : $" {value} ";
             }
 
-            color = cell.CellLeaf.Valid() || cell.CellLeaf.HelpValue.Equals("0") || cell.CellLeaf.IsLocked || cell.CellLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
+            color = square.SquareLeaf.Valid() || square.SquareLeaf.HelpValue.Equals("0") || square.SquareLeaf.IsLocked || square.SquareLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
 
             builder.Append(content.Pastel(color));
         }

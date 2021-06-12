@@ -8,9 +8,9 @@ namespace Sudoku.Domain.States
 {
     public class DefinitiveState : State
     {
-        public override void EnterValue(string value, CellLeaf cell)
+        public override void EnterValue(string value, SquareLeaf square)
         {
-            cell.Value = value;
+            square.Value = value;
         }
 
         public override Board? Construct()
@@ -18,14 +18,14 @@ namespace Sudoku.Domain.States
             return Context?.BaseSudoku()?.Accept(new NormalSudokuVisitor());
         }
 
-        public override bool CheckEquality(CellLeaf leftCell, CellLeaf rightCell)
+        public override bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare)
         {
-            return leftCell.Value == rightCell.Value;
+            return leftSquare.Value == rightSquare.Value;
         }
 
-        public override bool HasCellValue(CellLeaf cell)
+        public override bool HasSquareValue(SquareLeaf square)
         {
-            return !cell.Value.Equals("0");
+            return !square.Value.Equals("0");
         }
     }
 }

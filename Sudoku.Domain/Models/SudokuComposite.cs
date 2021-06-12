@@ -17,28 +17,28 @@ namespace Sudoku.Domain.Models
 
         public bool Valid(State state, bool setValid)
         {
-            var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+            var squares = GetChildren().SelectMany(q => q.GetChildren()).Cast<SquareLeaf>().ToList();
 
-            foreach (var cell in cells.Where(cell => !cell.IsLocked && state.HasCellValue(cell)))
+            foreach (var square in squares.Where(square => !square.IsLocked && state.HasSquareValue(square)))
             {
-                var rowColumn = cells.Where(c => (c.Position.Y == cell.Position.Y || c.Position.X == cell.Position.X) && c != cell)
-                    .FirstOrDefault(c => state.CheckEquality(c, cell));
+                var rowColumn = squares.Where(c => (c.Position.Y == square.Position.Y || c.Position.X == square.Position.X) && c != square)
+                    .FirstOrDefault(c => state.CheckEquality(c, square));
 
                 if (rowColumn != null)
                 {
-                    if (setValid) cell.IsValid = false;
+                    if (setValid) square.IsValid = false;
                     else
                     {
                         return false;
                     }
                 }
 
-                var box = Find(c => c.GetChildren().Contains(cell)).First();
+                var box = Find(c => c.GetChildren().Contains(square)).First();
 
-                if (box.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => state.CheckEquality(c, cell) && c != cell) == null) continue;
+                if (box.GetChildren().Cast<SquareLeaf>()
+                    .FirstOrDefault(c => state.CheckEquality(c, square) && c != square) == null) continue;
 
-                if (setValid) cell.IsValid = false;
+                if (setValid) square.IsValid = false;
                 else
                 {
                     return false;

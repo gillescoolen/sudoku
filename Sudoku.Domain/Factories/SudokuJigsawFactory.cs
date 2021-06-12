@@ -9,7 +9,7 @@ namespace Sudoku.Domain.Factories
     {
         public BaseSudoku CreateSudoku(string data)
         {
-            return new JigsawSudoku(new List<IComponent> { new CellLeaf(true, new Position(0, 0)) });
+            return new JigsawSudoku(new List<IComponent> { new SquareLeaf(true, new Position(0, 0)) });
         }
     }
 }

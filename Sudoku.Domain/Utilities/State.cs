@@ -15,20 +15,20 @@ namespace Sudoku.Domain.Utilities
             Context = context;
         }
 
-        public abstract void EnterValue(string value, CellLeaf cell);
+        public abstract void EnterValue(string value, SquareLeaf square);
         public abstract Board? Construct();
-        public abstract bool CheckEquality(CellLeaf leftCell, CellLeaf rightCell);
-        public abstract bool HasCellValue(CellLeaf cell);
+        public abstract bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare);
+        public abstract bool HasSquareValue(SquareLeaf square);
 
         public virtual void Select(Position position)
         {
-            var orderedCells = Context?.BaseSudoku()?.GetOrderedCells();
-            var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
-            if (currentLeaf == null || orderedCells == null) return;
+            var orderedSquares = Context?.BaseSudoku()?.GetOrderedSquares();
+            var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
+            if (currentLeaf == null || orderedSquares == null) return;
 
             var newPosition = new Position(currentLeaf.Position.X + position.X, currentLeaf.Position.Y + position.Y);
-            var newLeaf = orderedCells.FirstOrDefault(cellLeaf =>
-                cellLeaf.Position.X == newPosition.X && cellLeaf.Position.Y == newPosition.Y);
+            var newLeaf = orderedSquares.FirstOrDefault(squareLeaf =>
+                squareLeaf.Position.X == newPosition.X && squareLeaf.Position.Y == newPosition.Y);
 
             if (newLeaf == null) return;
 

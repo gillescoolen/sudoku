@@ -2,13 +2,13 @@ using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Domain.Models.Parts
 {
-    public class Cell : IPart
+    public class Square : IPart
     {
-        public CellLeaf CellLeaf { get; }
+        public SquareLeaf SquareLeaf { get; }
 
-        public Cell(CellLeaf cellLeaf)
+        public Square(SquareLeaf squareLeaf)
         {
-            CellLeaf = cellLeaf;
+            SquareLeaf = squareLeaf;
         }
 
         public void Accept(IDrawVisitor visitor)

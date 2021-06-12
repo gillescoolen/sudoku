@@ -39,9 +39,9 @@ namespace Sudoku.Domain.Utilities
             state.SetContext(this);
         }
 
-        public void EnterValue(string value, CellLeaf cell)
+        public void EnterValue(string value, SquareLeaf square)
         {
-            state?.EnterValue(value, cell);
+            state?.EnterValue(value, square);
         }
 
         public Board Construct()

@@ -27,8 +27,8 @@ namespace Sudoku.Domain.Factories
         {
             var subSudokusString = StringHelper.RemoveNewLineFromString(data.Split(Environment.NewLine).First());
 
-            var amountOfCellsPerSudoku = subSudokusString.Length;
-            var sizeOfSubSudokus = amountOfCellsPerSudoku.RoundSqrt();
+            var amountOfSquaresPerSudoku = subSudokusString.Length;
+            var sizeOfSubSudokus = amountOfSquaresPerSudoku.RoundSqrt();
 
             var reOrderedData = ReOrderString(data, sizeOfSubSudokus);
 
@@ -91,9 +91,9 @@ namespace Sudoku.Domain.Factories
             return actualString;
         }
 
-        private IEnumerable<CellLeaf> GenerateBoards(int size, int spacerSize, int sizeOfSubs, string data)
+        private IEnumerable<SquareLeaf> GenerateBoards(int size, int spacerSize, int sizeOfSubs, string data)
         {
-            var boards = new List<CellLeaf>();
+            var boards = new List<SquareLeaf>();
 
             var contentList = StringHelper.GetStringChunks(data, 1).ToList();
             var dataPointCount = data.Length;
@@ -110,16 +110,16 @@ namespace Sudoku.Domain.Factories
 
                     if (x >= startSpacerXy && x < endSpacerXy && (y >= 0 && y < spacerLength || y >= size - spacerLength && y < size))
                     {
-                        boards.Add(new CellLeaf(true, position));
+                        boards.Add(new SquareLeaf(true, position));
                     }
                     else if (y >= startSpacerXy && y < endSpacerXy && (x >= 0 && x < spacerLength || x >= size - spacerLength && x < size))
                     {
-                        boards.Add(new CellLeaf(true, position));
+                        boards.Add(new SquareLeaf(true, position));
                     }
                     else
                     {
                         var content = contentList[data.Length - dataPointCount--];
-                        boards.Add(new CellLeaf(content != "0", content, position));
+                        boards.Add(new SquareLeaf(content != "0", content, position));
                     }
                 }
             }
@@ -127,7 +127,7 @@ namespace Sudoku.Domain.Factories
             return boards;
         }
 
-        private List<BoxComposite> GenerateBoxes(int amountOfBoxes, int sizeOfSubs, List<CellLeaf> boards)
+        private List<BoxComposite> GenerateBoxes(int amountOfBoxes, int sizeOfSubs, List<SquareLeaf> boards)
         {
             var boxWidth = sizeOfSubs.CalculateWidth();
             var boxHeight = sizeOfSubs.CalculateHeight();

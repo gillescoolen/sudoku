@@ -50,7 +50,7 @@ namespace Sudoku.Domain
         public void Solve()
         {
             if (BaseSudoku == null) return;
-            BaseSudoku.GetOrderedCells().ForEach(c => c.Value = "0");
+            BaseSudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
             context.GetStrategy()?.Solve(BaseSudoku, context.GetState()!);
             Notify(this);
         }
@@ -68,7 +68,7 @@ namespace Sudoku.Domain
             Board = context.Construct();
         }
 
-        public void SelectCell(Position position)
+        public void SelectSquare(Position position)
         {
             context.GetState()!.Select(position);
             Notify(this);
@@ -77,8 +77,8 @@ namespace Sudoku.Domain
         public void EnterValue(string value)
         {
             if (int.Parse(value) > BaseSudoku?.MaxValue()) return;
-            var orderedCells = BaseSudoku?.GetOrderedCells();
-            var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
+            var orderedSquares = BaseSudoku?.GetOrderedSquares();
+            var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
             if (currentLeaf == null) return;
             context.EnterValue(value, currentLeaf);
             Notify(this);

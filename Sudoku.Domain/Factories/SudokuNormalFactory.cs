@@ -63,9 +63,9 @@ namespace Sudoku.Domain.Factories
             return boxes;
         }
 
-        private IEnumerable<CellLeaf> GenerateBoards(string data, int boardSize)
+        private IEnumerable<SquareLeaf> GenerateBoards(string data, int boardSize)
         {
-            var boards = new List<CellLeaf>();
+            var boards = new List<SquareLeaf>();
             var output = StringHelper.GetStringChunks(data, 1).ToList();
             var dataPointCount = data.Length;
 
@@ -74,19 +74,19 @@ namespace Sudoku.Domain.Factories
                 for (var x = 0; x < boardSize; ++x)
                 {
                     var content = output[data.Length - dataPointCount--];
-                    boards.Add(new CellLeaf(content != "0", content, new Position(x, y)));
+                    boards.Add(new SquareLeaf(content != "0", content, new Position(x, y)));
                 }
             }
 
             return boards;
         }
 
-        protected virtual IEnumerable<CellLeaf> GetBoxBoards(IEnumerable<CellLeaf> cells, Position minPosition, Position maxPosition)
+        protected virtual IEnumerable<SquareLeaf> GetBoxBoards(IEnumerable<SquareLeaf> squares, Position minPosition, Position maxPosition)
         {
-            return cells.Where(cell => cell.Position.X >= minPosition.X)
-                .Where(cell => cell.Position.X < maxPosition.X)
-                .Where(cell => cell.Position.Y >= minPosition.Y)
-                .Where(cell => cell.Position.Y < maxPosition.Y)
+            return squares.Where(square => square.Position.X >= minPosition.X)
+                .Where(square => square.Position.X < maxPosition.X)
+                .Where(square => square.Position.Y >= minPosition.Y)
+                .Where(square => square.Position.Y < maxPosition.Y)
                 .ToList();
         }
     }

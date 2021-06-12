@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Models.Interfaces
         public void TransitionState(State state);
         public BaseSudoku? BaseSudoku { get; set; }
         public Board Board { get; }
-        public void SelectCell(Position position);
+        public void SelectSquare(Position position);
         public void EnterValue(string value);
         public void Solve();
         public void ValidateSudoku(bool update = true);

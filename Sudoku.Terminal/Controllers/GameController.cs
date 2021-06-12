@@ -15,7 +15,7 @@ namespace Sudoku.Terminal.Controllers
 
         public void Select(Position position)
         {
-            App.game.SelectCell(position);
+            App.game.SelectSquare(position);
         }
 
         public void EnterValue(string value)

@@ -11,7 +11,7 @@ namespace Sudoku.Terminal.Controllers
     {
         public DefinitiveController(App app) : base(app)
         {
-            App.game.BaseSudoku?.GetOrderedCells().First().ToggleSelect();
+            App.game.BaseSudoku?.GetOrderedSquares().First().ToggleSelect();
         }
 
         public override View<DefinitiveController> CreateView()

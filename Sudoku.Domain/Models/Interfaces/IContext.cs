@@ -10,7 +10,7 @@ namespace Sudoku.Domain.Models.Interfaces
         public void SetBaseSudoku(BaseSudoku? sudoku);
         public BaseSudoku? BaseSudoku();
         public void TransitionTo(State newState);
-        public void EnterValue(string value, CellLeaf cell);
+        public void EnterValue(string value, SquareLeaf square);
         public Board Construct();
         public void SetStrategy(IStrategy newStrategy);
         public IStrategy? GetStrategy();
