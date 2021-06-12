@@ -17,10 +17,7 @@ namespace Sudoku.Domain.Models
 
         public override bool Equals(object? obj)
         {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
+            if (obj == null || GetType() != obj.GetType()) return false;
 
             var p = (Position)obj;
             return Equals(p);

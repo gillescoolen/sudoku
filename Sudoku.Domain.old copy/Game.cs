@@ -1,7 +1,4 @@
-﻿#nullable enable
-
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Linq;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.States;
@@ -12,15 +9,6 @@ namespace Sudoku.Domain
     public class Game : Provider<Game>, IGame
     {
         private readonly IContext context;
-
-        private List<(string type, bool selected)> formats = new()
-        {
-            ("4x4", true),
-            ("6x6", false),
-            ("9x9", false),
-            ("Samurai", false)
-        };
-
         public Board Board { get; private set; }
 
         public SudokuWrapper? SudokuWrapper
@@ -76,21 +64,15 @@ namespace Sudoku.Domain
         public void EnterValue(string value)
         {
             if (int.Parse(value) > SudokuWrapper?.MaxValue()) return;
+
             var orderedCells = SudokuWrapper?.GetOrderedCells();
             var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
+
             if (currentLeaf == null) return;
+
             context.EnterValue(value, currentLeaf);
+
             Notify(this);
-        }
-
-        public List<(string type, bool selected)> GetFormats()
-        {
-            return formats;
-        }
-
-        public void SelectFormat(List<(string type, bool selected)> selection)
-        {
-            formats = selection;
         }
     }
 }
