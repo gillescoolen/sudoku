@@ -7,7 +7,7 @@ namespace Sudoku.Domain.Factories
 {
     public class SudokuJigsawFactory : IAbstractSudokuFactory
     {
-        public SudokuWrapper CreateSudoku(string data)
+        public BaseSudoku CreateSudoku(string data)
         {
             return new JigsawSudoku(new List<IComponent> { new CellLeaf(true, new Position(0, 0)) });
         }

@@ -4,7 +4,7 @@ using Sudoku.Domain.Strategies;
 
 namespace Sudoku.Domain.Models.Sudokus
 {
-    public class NormalSudoku : SudokuWrapper
+    public class NormalSudoku : BaseSudoku
     {
         public NormalSudoku(List<IComponent> sudokus) : base(sudokus)
         {

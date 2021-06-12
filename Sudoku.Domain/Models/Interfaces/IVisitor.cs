@@ -2,6 +2,6 @@
 {
     public interface IVisitor
     {
-        public Board Visit(SudokuWrapper sudoku);
+        public Board Visit(BaseSudoku sudoku);
     }
 }

@@ -5,11 +5,11 @@ using Sudoku.Domain.Utilities;
 
 namespace Sudoku.Domain.Models
 {
-    public abstract class SudokuWrapper
+    public abstract class BaseSudoku
     {
         public List<IComponent> Sudokus { get; }
 
-        protected SudokuWrapper(List<IComponent> sudokus)
+        protected BaseSudoku(List<IComponent> sudokus)
         {
             Sudokus = sudokus;
         }

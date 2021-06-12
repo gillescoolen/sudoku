@@ -23,7 +23,7 @@ namespace Sudoku.Domain.Factories
             new List<int> { 32, 33, 34, 39, 40, 41, 46, 47, 48 }
         };
 
-        public override SudokuWrapper CreateSudoku(string data)
+        public override BaseSudoku CreateSudoku(string data)
         {
             var subSudokusString = StringHelper.RemoveNewLineFromString(data.Split(Environment.NewLine).First());
 

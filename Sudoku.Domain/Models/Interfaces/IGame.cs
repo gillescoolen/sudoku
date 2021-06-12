@@ -10,7 +10,7 @@ namespace Sudoku.Domain.Models.Interfaces
     {
         public IContext GetContext();
         public void TransitionState(State state);
-        public SudokuWrapper? SudokuWrapper { get; set; }
+        public BaseSudoku? BaseSudoku { get; set; }
         public Board Board { get; }
         public void SelectCell(Position position);
         public void EnterValue(string value);

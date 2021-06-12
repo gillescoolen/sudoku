@@ -9,23 +9,23 @@ namespace Sudoku.Domain.Utilities
     {
         private State? state;
         private IStrategy? strategy;
-        private SudokuWrapper? sudokuWrapper;
+        private BaseSudoku? baseSudoku;
 
         public State? GetState()
         {
             return state;
         }
 
-        public void SetSudokuWrapper(SudokuWrapper? sudoku)
+        public void SetBaseSudoku(BaseSudoku? sudoku)
         {
-            sudokuWrapper = sudoku;
-            if (sudokuWrapper == null) return;
+            baseSudoku = sudoku;
+            if (baseSudoku == null) return;
             SetStrategy(sudoku!.GetSolverStrategy());
         }
 
-        public SudokuWrapper? SudokuWrapper()
+        public BaseSudoku? BaseSudoku()
         {
-            return sudokuWrapper;
+            return baseSudoku;
         }
 
         public IStrategy? GetStrategy()

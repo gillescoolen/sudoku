@@ -18,7 +18,7 @@ namespace Sudoku.Parser
             sudokuFactory.AddSudokuFactory("jigsaw", typeof(SudokuJigsawFactory));
         }
 
-        public SudokuWrapper Parse(string format)
+        public BaseSudoku Parse(string format)
         {
             var abstractSudokuFactory = this.sudokuFactory.CreateSudokuFactory(format);
             return abstractSudokuFactory?.CreateSudoku(File.ReadAllText(Path.Combine($"./Sudoku.Terminal/Formats/puzzle.{format}")));

@@ -22,7 +22,7 @@ namespace Sudoku.Domain.Utilities
 
         public virtual void Select(Position position)
         {
-            var orderedCells = Context?.SudokuWrapper()?.GetOrderedCells();
+            var orderedCells = Context?.BaseSudoku()?.GetOrderedCells();
             var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
             if (currentLeaf == null || orderedCells == null) return;
 

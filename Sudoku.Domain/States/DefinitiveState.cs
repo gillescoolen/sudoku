@@ -15,7 +15,7 @@ namespace Sudoku.Domain.States
 
         public override Board? Construct()
         {
-            return Context?.SudokuWrapper()?.Accept(new NormalSudokuVisitor());
+            return Context?.BaseSudoku()?.Accept(new NormalSudokuVisitor());
         }
 
         public override bool CheckEquality(CellLeaf leftCell, CellLeaf rightCell)

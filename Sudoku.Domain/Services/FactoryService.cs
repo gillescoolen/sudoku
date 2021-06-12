@@ -17,7 +17,7 @@ namespace Sudoku.Domain.Services
             factory.AddSudokuFactory("Samurai", typeof(SudokuSamuraiFactory));
         }
 
-        public SudokuWrapper Create(string type, string data)
+        public BaseSudoku Create(string type, string data)
         {
             var sudokuFactory = factory.CreateSudokuFactory(type);
             return sudokuFactory?.CreateSudoku(data)!;

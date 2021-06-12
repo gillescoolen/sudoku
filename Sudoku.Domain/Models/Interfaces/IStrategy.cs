@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Models.Interfaces
 {
     public interface IStrategy
     {
-        public bool Solve(SudokuWrapper sudokuWrapper, State state);
+        public bool Solve(BaseSudoku baseSudoku, State state);
     }
 }

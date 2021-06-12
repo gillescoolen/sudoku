@@ -8,7 +8,7 @@ namespace Sudoku.Terminal.Controllers
     {
         public MainController(App app) : base(app)
         {
-            App.game.SudokuWrapper = null;
+            App.game.BaseSudoku = null;
         }
 
         public override View<MainController> CreateView()
@@ -18,12 +18,12 @@ namespace Sudoku.Terminal.Controllers
 
         public void ChooseType()
         {
-            App.game.SudokuWrapper = App.reader.Parse(GetFormats().First(s => s.selected).type);
+            App.game.BaseSudoku = App.reader.Parse(GetFormats().First(s => s.selected).type);
         }
 
         public override void Update()
         {
-            if (App.game.SudokuWrapper != null) App.OpenController<DefinitiveController>();
+            if (App.game.BaseSudoku != null) App.OpenController<DefinitiveController>();
         }
 
         public List<(string type, bool selected)> GetFormats()
@@ -33,19 +33,26 @@ namespace Sudoku.Terminal.Controllers
 
         public void MoveSelection(int selection)
         {
-            var selected = GetFormats().FindIndex(s => s.selected);
-            var current = GetFormats()[selected];
+            var selectedFormat = GetFormats().FindIndex(s => s.selected);
+            var currentFormat = GetFormats()[selectedFormat];
 
-            var nextIndex = selected == 0 && selection == -1 ? GetFormats().Count - 1 : selected + selection;
-            var next = GetFormats().ElementAt(nextIndex >= GetFormats().Count ? 0 : nextIndex);
+            var nextIndex = selectedFormat == 0 && selection == -1 ? GetFormats().Count - 1 : selectedFormat + selection;
+            var nextFormat = GetFormats().ElementAt(nextIndex >= GetFormats().Count ? 0 : nextIndex);
 
-            var selectionList = GetFormats().Select(s =>
+            var selectionList = GetFormats().Select(format =>
             {
-                if (s == current) s.selected = false;
-                if (s == next) s.selected = true;
-                return s;
+                if (format == currentFormat)
+                {
+                    format.selected = false;
+                }
+                if (format == nextFormat)
+                {
+                    format.selected = true;
+                }
+
+                return format;
             }).ToList();
-            
+
             App.game.SelectFormat(selectionList);
 
             App.OnNext(App.game);

@@ -35,7 +35,7 @@ namespace Sudoku.Terminal.Views.Visitors
                 content = cell.CellLeaf.Value.Equals("0") || cell.CellLeaf.Value.Equals("") ? " x " : $" {cell.CellLeaf.Value} ";
             }
 
-            color = cell.CellLeaf.Valid() || cell.CellLeaf.IsLocked || cell.CellLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";;
+            color = cell.CellLeaf.Valid() || cell.CellLeaf.IsLocked || cell.CellLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
 
             stringBuilder.Append(content.Pastel(color));
         }

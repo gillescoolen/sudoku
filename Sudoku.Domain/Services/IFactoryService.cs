@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Services
 {
     public interface IFactoryService
     {
-        public SudokuWrapper Create(string type, string data);
+        public BaseSudoku Create(string type, string data);
     }
 }

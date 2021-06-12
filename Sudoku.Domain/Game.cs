@@ -24,12 +24,12 @@ namespace Sudoku.Domain
 
         public Board Board { get; private set; }
 
-        public SudokuWrapper? SudokuWrapper
+        public BaseSudoku? BaseSudoku
         {
-            get => context.SudokuWrapper();
+            get => context.BaseSudoku();
             set
             {
-                context.SetSudokuWrapper(value);
+                context.SetBaseSudoku(value);
                 Board = context.Construct();
                 Notify(this);
             }
@@ -49,16 +49,16 @@ namespace Sudoku.Domain
 
         public void Solve()
         {
-            if (SudokuWrapper == null) return;
-            SudokuWrapper.GetOrderedCells().ForEach(c => c.Value = "0");
-            context.GetStrategy()?.Solve(SudokuWrapper, context.GetState()!);
+            if (BaseSudoku == null) return;
+            BaseSudoku.GetOrderedCells().ForEach(c => c.Value = "0");
+            context.GetStrategy()?.Solve(BaseSudoku, context.GetState()!);
             Notify(this);
         }
 
         public void ValidateSudoku(bool update = true)
         {
-            if (SudokuWrapper == null) return;
-            SudokuWrapper.ValidateSudoku(context.GetState()!, true);
+            if (BaseSudoku == null) return;
+            BaseSudoku.ValidateSudoku(context.GetState()!, true);
             if (update) Notify(this);
         }
 
@@ -76,8 +76,8 @@ namespace Sudoku.Domain
 
         public void EnterValue(string value)
         {
-            if (int.Parse(value) > SudokuWrapper?.MaxValue()) return;
-            var orderedCells = SudokuWrapper?.GetOrderedCells();
+            if (int.Parse(value) > BaseSudoku?.MaxValue()) return;
+            var orderedCells = BaseSudoku?.GetOrderedCells();
             var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
             if (currentLeaf == null) return;
             context.EnterValue(value, currentLeaf);

@@ -8,13 +8,13 @@ namespace Sudoku.Domain.Visitors
 {
     public class NormalSudokuVisitor : IVisitor
     {
-        public Board Visit(SudokuWrapper sudokuWrapper)
+        public Board Visit(BaseSudoku baseSudoku)
         {
             var builder = new BoardBuilder();
-            var cells = sudokuWrapper.GetOrderedCells();
-            var boxes = sudokuWrapper.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
+            var cells = baseSudoku.GetOrderedCells();
+            var boxes = baseSudoku.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
             var totalWidth = cells.Max(cellLeaf => cellLeaf.Position.X) + 1;
-            var firstBox = sudokuWrapper.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
+            var firstBox = baseSudoku.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
             var nextHorizontal = firstBox.FloorSqrt();
             var nextVertical = firstBox.CeilingSqrt();
 

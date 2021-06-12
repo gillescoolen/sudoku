@@ -33,9 +33,9 @@ namespace Sudoku.Terminal.Controllers
             App.game.Solve();
         }
 
-        public SudokuWrapper GetSudoku()
+        public BaseSudoku GetSudoku()
         {
-            return App.game.SudokuWrapper;
+            return App.game.BaseSudoku;
         }
 
         public Board GetBoard()
