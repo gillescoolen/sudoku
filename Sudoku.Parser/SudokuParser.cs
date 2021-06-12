@@ -18,10 +18,10 @@ namespace Sudoku.Parser
             sudokuFactory.AddSudokuFactory("jigsaw", typeof(SudokuJigsawFactory));
         }
 
-        public SudokuWrapper Parse(string type)
+        public SudokuWrapper Parse(string format)
         {
-            var abstractSudokuFactory = this.sudokuFactory.CreateSudokuFactory(type);
-            return abstractSudokuFactory?.CreateSudoku(File.ReadAllText($"./Sudoku.Terminal/Formats/puzzle.{type}"));
+            var abstractSudokuFactory = this.sudokuFactory.CreateSudokuFactory(format);
+            return abstractSudokuFactory?.CreateSudoku(File.ReadAllText(Path.Combine($"./Sudoku.Terminal/Formats/puzzle.{format}")));
         }
     }
 }

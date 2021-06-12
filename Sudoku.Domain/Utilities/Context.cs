@@ -16,11 +16,11 @@ namespace Sudoku.Domain.Utilities
             return state;
         }
 
-        public void SetSudokuWrapper(SudokuWrapper? s)
+        public void SetSudokuWrapper(SudokuWrapper? sudoku)
         {
-            sudokuWrapper = s;
+            sudokuWrapper = sudoku;
             if (sudokuWrapper == null) return;
-            SetStrategy(s!.GetSolverStrategy());
+            SetStrategy(sudoku!.GetSolverStrategy());
         }
 
         public SudokuWrapper? SudokuWrapper()

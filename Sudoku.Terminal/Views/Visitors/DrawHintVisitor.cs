@@ -15,9 +15,9 @@ namespace Sudoku.Terminal.Views.Visitors
             this.builder = builder;
         }
 
-        public void Visit(Divider Divider)
+        public void Visit(Divider divider)
         {
-            builder.Append(Divider.Horizontal ? " H " : "H");
+            builder.Append(divider.Horizontal ? " - " : "|");
         }
 
         public void Visit(Cell cell)

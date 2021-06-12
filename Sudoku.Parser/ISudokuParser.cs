@@ -4,6 +4,6 @@ namespace Sudoku.Parser
 {
     public interface ISudokuParser
     {
-        public SudokuWrapper Parse(string type);
+        public SudokuWrapper Parse(string format);
     }
 }
