@@ -18,7 +18,7 @@ namespace Sudoku.Terminal.Controllers
 
         public void ChooseType()
         {
-            App.game.BaseSudoku = App.reader.Parse(GetFormats().First(s => s.selected).type);
+            App.game.BaseSudoku = App.parser.Parse(GetFormats().First(s => s.selected).type);
         }
 
         public override void Update()

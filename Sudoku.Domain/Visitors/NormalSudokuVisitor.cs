@@ -8,48 +8,48 @@ namespace Sudoku.Domain.Visitors
 {
     public class NormalSudokuVisitor : IVisitor
     {
-        public Board Visit(BaseSudoku baseSudoku)
+        public Board Visit(BaseSudoku sudoku)
         {
             var builder = new BoardBuilder();
-            var squares = baseSudoku.GetOrderedSquares();
-            var boxes = baseSudoku.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
-            var totalWidth = squares.Max(squareLeaf => squareLeaf.Position.X) + 1;
-            var firstBox = baseSudoku.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
+            var squares = sudoku.GetOrderedSquares();
+            var boxes = sudoku.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
+            var totalWidth = squares.Max(squareLeaf => squareLeaf.Coordinate.X) + 1;
+            var firstBox = sudoku.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
             var nextHorizontal = firstBox.FloorSqrt();
             var nextVertical = firstBox.CeilingSqrt();
 
             for (var i = 0; i < squares.Count; ++i)
             {
-                var leaf = squares[i];
-                var nextLeaf = i + 1 > squares.Count - 1 ? null : squares[i + 1];
-                var downLeaf = squares.FirstOrDefault(squareLeaf => squareLeaf.Position.Y == leaf.Position.Y + 1 && squareLeaf.Position.X == leaf.Position.X);
-                var box = boxes.First(q => q.GetChildren().Contains(leaf));
+                var square = squares[i];
+                var nextSquare = i + 1 > squares.Count - 1 ? null : squares[i + 1];
+                var bottomSquare = squares.FirstOrDefault(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1 && squareLeaf.Coordinate.X == square.Coordinate.X);
+                var box = boxes.First(q => q.GetChildren().Contains(square));
 
-                builder.BuildSquare(leaf);
+                builder.BuildSquare(square);
 
-                if (nextLeaf?.Position.Y == leaf.Position.Y && !box.GetChildren().Contains(nextLeaf!))
+                if (nextSquare?.Coordinate.Y == square.Coordinate.Y && !box.GetChildren().Contains(nextSquare!))
                 {
-                    if (leaf.IsSpacingSquare() && nextLeaf.IsSpacingSquare())
-                        builder.BuildSpacer(1);
-                    else
-                        builder.BuildDivider(false);
+                    if (square.IsSpacingSquare() && nextSquare.IsSpacingSquare()) builder.BuildSpacer(1);
+                    else builder.BuildDivider(false);
                 }
 
-                if (nextLeaf?.Position.Y == leaf.Position.Y) continue;
+                if (nextSquare?.Coordinate.Y == square.Coordinate.Y) continue;
 
                 builder.BuildRow();
 
-                if ((leaf.Position.Y + 1) % nextHorizontal != 0 || downLeaf == null) continue;
+                if ((square.Coordinate.Y + 1) % nextHorizontal != 0 || bottomSquare == null) continue;
 
-                var currentLeaves = squares.Where(squareLeaf => squareLeaf.Position.Y == leaf.Position.Y).ToList();
-                var nextLeaves = squares.Where(squareLeaf => squareLeaf.Position.Y == leaf.Position.Y + 1).ToList();
+                var currentLeaves = squares
+                    .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y)
+                    .ToList();
+                var nextLeaves = squares
+                    .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1)
+                    .ToList();
 
                 for (var Divider = 0; Divider < totalWidth; ++Divider)
                 {
-                    if (!currentLeaves[Divider].IsSpacingSquare() && !nextLeaves[Divider].IsSpacingSquare())
-                        builder.BuildDivider(true);
-                    else
-                        builder.BuildSpacer(3);
+                    if (!currentLeaves[Divider].IsSpacingSquare() && !nextLeaves[Divider].IsSpacingSquare()) builder.BuildDivider(true);
+                    else builder.BuildSpacer(3);
 
                     if ((Divider + 1) % nextVertical == 0) builder.BuildSpacer(1);
                 }

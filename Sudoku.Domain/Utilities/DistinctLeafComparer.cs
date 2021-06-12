@@ -10,12 +10,12 @@ namespace Sudoku.Domain.Utilities
     {
         public bool Equals(SquareLeaf? x, SquareLeaf? y)
         {
-            return x!.Position.Y == y!.Position.Y && x!.Position.X == y!.Position.X;
+            return x!.Coordinate.Y == y!.Coordinate.Y && x!.Coordinate.X == y!.Coordinate.X;
         }
 
         public int GetHashCode(SquareLeaf obj)
         {
-            return HashCode.Combine(obj.IsLocked, obj.IsSelected, obj.Position);
+            return HashCode.Combine(obj.IsLocked, obj.IsSelected, obj.Coordinate);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Sudoku.Domain.Models
 
             foreach (var square in squares.Where(square => !square.IsLocked && state.HasSquareValue(square)))
             {
-                var rowColumn = squares.Where(c => (c.Position.Y == square.Position.Y || c.Position.X == square.Position.X) && c != square)
+                var rowColumn = squares.Where(c => (c.Coordinate.Y == square.Coordinate.Y || c.Coordinate.X == square.Coordinate.X) && c != square)
                     .FirstOrDefault(c => state.CheckEquality(c, square));
 
                 if (rowColumn != null)

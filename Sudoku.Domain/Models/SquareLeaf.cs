@@ -19,7 +19,7 @@ namespace Sudoku.Domain.Models
         public bool IsSelected { get; private set; }
         private string value;
         private string helpValue = "0";
-        public Position Position { get; }
+        public Coordinate Coordinate { get; }
 
         public string Value
         {
@@ -44,18 +44,18 @@ namespace Sudoku.Domain.Models
             }
         }
 
-        public SquareLeaf(bool isLocked, string value, Position position)
+        public SquareLeaf(bool isLocked, string value, Coordinate coordinate)
         {
             IsLocked = isLocked;
             this.value = value;
-            Position = position;
+            Coordinate = coordinate;
         }
 
-        public SquareLeaf(bool isLocked, Position position)
+        public SquareLeaf(bool isLocked, Coordinate coordinate)
         {
             IsLocked = isLocked;
             value = "";
-            Position = position;
+            Coordinate = coordinate;
         }
 
         public void ToggleSelect()

@@ -20,15 +20,15 @@ namespace Sudoku.Domain.Utilities
         public abstract bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare);
         public abstract bool HasSquareValue(SquareLeaf square);
 
-        public virtual void Select(Position position)
+        public virtual void Select(Coordinate coordinate)
         {
-            var orderedSquares = Context?.BaseSudoku()?.GetOrderedSquares();
+            var orderedSquares = Context?.Sudoku()?.GetOrderedSquares();
             var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
             if (currentLeaf == null || orderedSquares == null) return;
 
-            var newPosition = new Position(currentLeaf.Position.X + position.X, currentLeaf.Position.Y + position.Y);
+            var newCoordinate = new Coordinate(currentLeaf.Coordinate.X + coordinate.X, currentLeaf.Coordinate.Y + coordinate.Y);
             var newLeaf = orderedSquares.FirstOrDefault(squareLeaf =>
-                squareLeaf.Position.X == newPosition.X && squareLeaf.Position.Y == newPosition.Y);
+                squareLeaf.Coordinate.X == newCoordinate.X && squareLeaf.Coordinate.Y == newCoordinate.Y);
 
             if (newLeaf == null) return;
 

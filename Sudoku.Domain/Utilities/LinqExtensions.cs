@@ -5,8 +5,7 @@ namespace Sudoku.Domain.Utilities
 {
     public static class LinqExtensions
     {
-        public static IEnumerable<T> Descendants<T>(this IEnumerable<T> source,
-            Func<T, IEnumerable<T>> descendBy)
+        public static IEnumerable<T> Descendants<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> descendBy)
         {
             foreach (var value in source)
             {
@@ -26,9 +25,11 @@ namespace Sudoku.Domain.Utilities
             foreach (var item in collection)
             {
                 nextBatch.Add(item);
+
                 if (nextBatch.Count != batchSize) continue;
 
                 yield return nextBatch;
+
                 nextBatch = new List<T>(batchSize);
             }
 

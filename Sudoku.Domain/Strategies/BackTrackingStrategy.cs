@@ -7,17 +7,17 @@ namespace Sudoku.Domain.Strategies
 {
     public class BackTrackingStrategy : IStrategy
     {
-        public bool Solve(BaseSudoku baseSudoku, State state)
+        public bool Solve(BaseSudoku sudoku, State state)
         {
-            var emptySquare = baseSudoku.GetOrderedSquares().FirstOrDefault(c => c.Value.Equals("0") && !c.IsLocked);
-            var maxValue = baseSudoku.MaxValue();
+            var emptySquare = sudoku.GetOrderedSquares().FirstOrDefault(c => c.Value.Equals("0") && !c.IsLocked);
+            var maxValue = sudoku.MaxValue();
 
             if (emptySquare == null) return true;
 
             for (var i = 1; i <= maxValue; ++i)
             {
                 emptySquare.Value = $"{i}";
-                if (baseSudoku.ValidateSudoku(state) && Solve(baseSudoku, state)) return true;
+                if (sudoku.ValidateSudoku(state) && Solve(sudoku, state)) return true;
                 emptySquare.Value = "0";
             }
             return false;

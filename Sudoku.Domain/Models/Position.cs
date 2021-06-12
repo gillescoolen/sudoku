@@ -4,12 +4,12 @@ using System;
 
 namespace Sudoku.Domain.Models
 {
-    public class Position
+    public class Coordinate
     {
         public int X { get; }
         public int Y { get; }
 
-        public Position(int x, int y)
+        public Coordinate(int x, int y)
         {
             X = x;
             Y = y;
@@ -22,11 +22,11 @@ namespace Sudoku.Domain.Models
                 return false;
             }
 
-            var p = (Position)obj;
+            var p = (Coordinate)obj;
             return Equals(p);
         }
 
-        protected bool Equals(Position other)
+        protected bool Equals(Coordinate other)
         {
             return X == other.X && Y == other.Y;
         }

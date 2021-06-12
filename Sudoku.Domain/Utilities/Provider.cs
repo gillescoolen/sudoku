@@ -10,14 +10,13 @@ namespace Sudoku.Domain.Utilities
         public IDisposable Subscribe(IObserver<T> observer)
         {
             if (!observers.Contains(observer)) observers.Add(observer);
-            
+
             return new UnSubscriber<T>(observers, observer);
         }
 
         protected void Notify(T value)
         {
-            foreach (var observer in observers)
-                observer.OnNext(value);
+            foreach (var observer in observers) observer.OnNext(value);
         }
     }
 }

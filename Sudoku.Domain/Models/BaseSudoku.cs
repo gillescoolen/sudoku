@@ -18,8 +18,8 @@ namespace Sudoku.Domain.Models
         {
             return Sudokus.SelectMany(box => box.Find(leaf => !leaf.IsComposite()))
                 .Cast<SquareLeaf>()
-                .OrderBy(square => square.Position.Y)
-                .ThenBy(square => square.Position.X)
+                .OrderBy(square => square.Coordinate.Y)
+                .ThenBy(square => square.Coordinate.X)
                 .Distinct(new DistinctLeafComparer())
                 .ToList();
         }

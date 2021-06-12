@@ -8,7 +8,7 @@ namespace Sudoku.Domain.Models.Interfaces
     {
         public bool Valid(State state, bool setValid);
         public bool IsComposite();
-        public IEnumerable<IComponent> Find(Func<IComponent, bool> finder);
+        public IEnumerable<IComponent> Find(Func<IComponent, bool> search);
         public IEnumerable<IComponent> GetChildren();
     }
 }

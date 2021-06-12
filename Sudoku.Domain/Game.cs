@@ -26,11 +26,11 @@ namespace Sudoku.Domain
 
         public BaseSudoku? BaseSudoku
         {
-            get => context.BaseSudoku();
+            get => context.Sudoku();
             set
             {
-                context.SetBaseSudoku(value);
-                Board = context.Construct();
+                context.SetSudoku(value);
+                Board = context.CreateBoard();
                 Notify(this);
             }
         }
@@ -38,8 +38,8 @@ namespace Sudoku.Domain
         public Game(IContext context)
         {
             this.context = context;
-            context.TransitionTo(new DefinitiveState());
-            Board = context.Construct();
+            context.SwitchState(new DefinitiveState());
+            Board = context.CreateBoard();
         }
 
         public IContext GetContext()
@@ -64,13 +64,13 @@ namespace Sudoku.Domain
 
         public void TransitionState(State state)
         {
-            context.TransitionTo(state);
-            Board = context.Construct();
+            context.SwitchState(state);
+            Board = context.CreateBoard();
         }
 
-        public void SelectSquare(Position position)
+        public void SelectSquare(Coordinate coordinate)
         {
-            context.GetState()!.Select(position);
+            context.GetState()!.Select(coordinate);
             Notify(this);
         }
 

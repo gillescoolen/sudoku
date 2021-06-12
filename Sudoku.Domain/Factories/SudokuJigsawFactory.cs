@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Models.Sudokus;
@@ -9,7 +10,7 @@ namespace Sudoku.Domain.Factories
     {
         public BaseSudoku CreateSudoku(string data)
         {
-            return new JigsawSudoku(new List<IComponent> { new SquareLeaf(true, new Position(0, 0)) });
+            throw new NotImplementedException();
         }
     }
 }
