@@ -8,11 +8,11 @@ namespace Sudoku.Domain.Models
 {
     public class SudokuComposite : IComponent
     {
-        public List<IComponent> Boxs { get; }
+        public List<IComponent> Boxes { get; }
 
-        public SudokuComposite(List<IComponent> boxs)
+        public SudokuComposite(List<IComponent> boxes)
         {
-            Boxs = boxs;
+            Boxes = boxes;
         }
 
         public bool Valid(State state, bool setValid)
@@ -60,7 +60,7 @@ namespace Sudoku.Domain.Models
 
         public IEnumerable<IComponent> GetChildren()
         {
-            return Boxs;
+            return Boxes;
         }
     }
 }

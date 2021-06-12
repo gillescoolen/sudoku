@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Visitors
         {
             var builder = new BoardBuilder();
             var cells = sudokuWrapper.GetOrderedCells();
-            var boxs = sudokuWrapper.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
+            var boxes = sudokuWrapper.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
             var totalWidth = cells.Max(cellLeaf => cellLeaf.Position.X) + 1;
             var firstBox = sudokuWrapper.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
             var nextHorizontal = firstBox.FloorSqrt();
@@ -23,7 +23,7 @@ namespace Sudoku.Domain.Visitors
                 var leaf = cells[i];
                 var nextLeaf = i + 1 > cells.Count - 1 ? null : cells[i + 1];
                 var downLeaf = cells.FirstOrDefault(cellLeaf => cellLeaf.Position.Y == leaf.Position.Y + 1 && cellLeaf.Position.X == leaf.Position.X);
-                var box = boxs.First(q => q.GetChildren().Contains(leaf));
+                var box = boxes.First(q => q.GetChildren().Contains(leaf));
 
                 builder.BuildCell(leaf);
 

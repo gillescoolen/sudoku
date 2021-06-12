@@ -10,7 +10,7 @@ namespace Sudoku.Domain.Factories
 {
     public class SudokuSamuraiFactory : SudokuNormalFactory
     {
-        private static readonly List<List<int>> boxsPerSudoku = new()
+        private static readonly List<List<int>> boxesPerSudoku = new()
         {
             new List<int> { 0, 1, 2, 7, 8, 9, 14, 15, 16 },
             new List<int> { 3, 10 },
@@ -34,12 +34,12 @@ namespace Sudoku.Domain.Factories
 
             var spacer = sizeOfSubSudokus.RoundSqrt();
             var sizeOfTotal = sizeOfSubSudokus * 2 + spacer;
-            var amountOfBoxsPerRow = sizeOfTotal / spacer;
-            var amountOfBoxs = amountOfBoxsPerRow * amountOfBoxsPerRow;
+            var amountOfBoxesPerRow = sizeOfTotal / spacer;
+            var amountOfBoxes = amountOfBoxesPerRow * amountOfBoxesPerRow;
 
             var boards = GenerateBoards(sizeOfTotal, spacer, sizeOfSubSudokus, reOrderedData).ToList();
-            var boxs = GenerateBoxs(amountOfBoxs, sizeOfSubSudokus, boards);
-            var sudokus = GenerateSudokus(boxs);
+            var boxes = GenerateBoxes(amountOfBoxes, sizeOfSubSudokus, boards);
+            var sudokus = GenerateSudokus(boxes);
 
             return new SamuraiSudoku(sudokus);
         }
@@ -127,20 +127,20 @@ namespace Sudoku.Domain.Factories
             return boards;
         }
 
-        private List<BoxComposite> GenerateBoxs(int amountOfBoxs, int sizeOfSubs, List<CellLeaf> boards)
+        private List<BoxComposite> GenerateBoxes(int amountOfBoxes, int sizeOfSubs, List<CellLeaf> boards)
         {
             var boxWidth = sizeOfSubs.CalculateWidth();
             var boxHeight = sizeOfSubs.CalculateHeight();
 
-            var boxsPerRow = amountOfBoxs.RoundSqrt();
+            var boxesPerRow = amountOfBoxes.RoundSqrt();
 
-            var boxs = new List<BoxComposite>();
+            var boxes = new List<BoxComposite>();
 
             var currentBox = 0;
             var maxX = boxWidth;
             var maxY = boxHeight;
 
-            for (var i = 0; i < amountOfBoxs; i++)
+            for (var i = 0; i < amountOfBoxes; i++)
             {
                 var minX = maxX - boxWidth;
                 var minY = maxY - boxHeight;
@@ -148,11 +148,11 @@ namespace Sudoku.Domain.Factories
                 var leaves = new List<IComponent>();
                 leaves.AddRange(GetBoxBoards(boards, new Position(minX, minY), new Position(maxX, maxY)));
 
-                boxs.Add(new BoxComposite(leaves));
+                boxes.Add(new BoxComposite(leaves));
 
                 currentBox++;
 
-                if (currentBox == boxsPerRow)
+                if (currentBox == boxesPerRow)
                 {
                     maxX = boxWidth;
                     maxY += boxHeight;
@@ -163,14 +163,14 @@ namespace Sudoku.Domain.Factories
                 maxX += boxWidth;
             }
 
-            return boxs;
+            return boxes;
         }
 
-        private List<IComponent> GenerateSudokus(IReadOnlyList<IComponent> boxs)
+        private List<IComponent> GenerateSudokus(IReadOnlyList<IComponent> boxes)
         {
-            return boxsPerSudoku
-                .Select(ints => ints.Select(i => boxs[i]).ToList())
-                .Select(sudokuBoxs => new SudokuComposite(sudokuBoxs))
+            return boxesPerSudoku
+                .Select(ints => ints.Select(i => boxes[i]).ToList())
+                .Select(sudokuBoxes => new SudokuComposite(sudokuBoxes))
                 .Cast<IComponent>()
                 .ToList();
         }
