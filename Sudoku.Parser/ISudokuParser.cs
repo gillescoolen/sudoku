@@ -1,4 +1,4 @@
-using Sudoku.Domain.Models;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Parser
 {

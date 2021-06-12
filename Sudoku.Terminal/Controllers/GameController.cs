@@ -1,6 +1,7 @@
 using System.Text;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Terminal.Controllers
 {

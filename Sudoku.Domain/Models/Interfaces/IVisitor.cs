@@ -1,4 +1,6 @@
-﻿namespace Sudoku.Domain.Models.Interfaces
+﻿using Sudoku.Domain.Models.Sudokus;
+
+namespace Sudoku.Domain.Models.Interfaces
 {
     public interface IVisitor
     {

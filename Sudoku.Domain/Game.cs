@@ -6,6 +6,7 @@ using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.States;
 using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Domain
 {

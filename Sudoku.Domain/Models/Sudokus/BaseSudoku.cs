@@ -3,7 +3,7 @@ using System.Linq;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Utilities;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Models.Sudokus
 {
     public abstract class BaseSudoku
     {
