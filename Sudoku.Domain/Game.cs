@@ -51,27 +51,34 @@ namespace Sudoku.Domain
         public void Solve()
         {
             if (sudoku == null) return;
+
             sudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
+
             context.GetStrategy()?.Solve(sudoku, context.GetState()!);
+
             Notify(this);
         }
 
         public void ValidateSudoku(bool update = true)
         {
             if (sudoku == null) return;
+
             sudoku.ValidateSudoku(context.GetState()!, true);
+
             if (update) Notify(this);
         }
 
         public void SwitchState(State state)
         {
             context.SwitchState(state);
+
             Board = context.CreateBoard();
         }
 
         public void SelectSquare(Coordinate coordinate)
         {
             context.GetState()!.Select(coordinate);
+
             Notify(this);
         }
 

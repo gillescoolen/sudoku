@@ -15,20 +15,25 @@ namespace Sudoku.Domain.Models
             Y = y;
         }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object? data)
         {
-            if (obj == null || GetType() != obj.GetType())
+            if (data == null || GetType() != data.GetType())
             {
                 return false;
             }
 
-            var p = (Coordinate)obj;
-            return Equals(p);
+            var coordinate = (Coordinate)data;
+            return Equals(coordinate);
         }
 
         protected bool Equals(Coordinate other)
         {
             return X == other.X && Y == other.Y;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
         }
     }
 }

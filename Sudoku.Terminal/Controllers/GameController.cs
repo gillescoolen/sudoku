@@ -14,7 +14,7 @@ namespace Sudoku.Terminal.Controllers
         public abstract IDrawVisitor Visitor(StringBuilder builder);
         public abstract void Switch();
 
-        public void Select(Coordinate coordinate)
+        public void Move(Coordinate coordinate)
         {
             App.game.SelectSquare(coordinate);
         }
