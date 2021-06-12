@@ -18,20 +18,20 @@ namespace Sudoku.Domain.Factories
         private SudokuWrapper CreateSudokuOfSize(string data)
         {
             var dividingNumber = data.Length.RoundSqrt();
-            var boxs = GenerateBoxs(dividingNumber, data);
-            var sudoku = new SudokuComposite(boxs);
+            var boxes = GenerateBoxes(dividingNumber, data);
+            var sudoku = new SudokuComposite(boxes);
 
             return new NormalSudoku(new List<IComponent> { sudoku });
         }
 
-        private List<IComponent> GenerateBoxs(int size, string data)
+        private List<IComponent> GenerateBoxes(int size, string data)
         {
             var boards = GenerateBoards(data, size).ToList();
 
             var boxWidth = size.CalculateWidth();
             var boxHeight = size.CalculateHeight();
 
-            var boxs = new List<IComponent>();
+            var boxes = new List<IComponent>();
 
             var currentBox = 0;
             var maxX = boxWidth;
@@ -45,7 +45,7 @@ namespace Sudoku.Domain.Factories
                 var leaves = new List<IComponent>();
                 leaves.AddRange(GetBoxBoards(boards, new Position(minX, minY), new Position(maxX, maxY)));
 
-                boxs.Add(new BoxComposite(leaves));
+                boxes.Add(new BoxComposite(leaves));
 
                 currentBox++;
 
@@ -60,7 +60,7 @@ namespace Sudoku.Domain.Factories
                 maxX += boxWidth;
             }
 
-            return boxs;
+            return boxes;
         }
 
         private IEnumerable<CellLeaf> GenerateBoards(string data, int boardSize)
