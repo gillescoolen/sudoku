@@ -8,7 +8,7 @@ namespace Sudoku.Terminal.Controllers
     {
         public MainController(App app) : base(app)
         {
-            App.game.BaseSudoku = null;
+            App.game.sudoku = null;
         }
 
         public override View<MainController> CreateView()
@@ -18,12 +18,12 @@ namespace Sudoku.Terminal.Controllers
 
         public void ChooseType()
         {
-            App.game.BaseSudoku = App.parser.Parse(GetFormats().First(s => s.selected).type);
+            App.game.sudoku = App.parser.Parse(GetFormats().First(s => s.selected).type);
         }
 
         public override void Update()
         {
-            if (App.game.BaseSudoku != null) App.OpenController<DefinitiveController>();
+            if (App.game.sudoku != null) App.OpenController<DefinitiveController>();
         }
 
         public List<(string type, bool selected)> GetFormats()

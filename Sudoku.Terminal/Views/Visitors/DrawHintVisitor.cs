@@ -17,7 +17,7 @@ namespace Sudoku.Terminal.Views.Visitors
 
         public void Visit(Divider divider)
         {
-            builder.Append(divider.Horizontal ? " - " : "|");
+            builder.Append(divider.Horizontal ? " H " : "H");
         }
 
         public void Visit(Square square)
@@ -30,8 +30,7 @@ namespace Sudoku.Terminal.Views.Visitors
             {
                 color = $"{Color.FromName("yellow").ToArgb():x6}";
             }
-
-            if (square.SquareLeaf.IsSelected)
+            else if (square.SquareLeaf.IsSelected)
             {
                 color = $"{Color.FromName("cyan").ToArgb():x6}";
                 content = value.Equals("0") || value.Equals("") ? " x " : $" {value} ";

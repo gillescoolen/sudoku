@@ -11,12 +11,12 @@ namespace Sudoku.Terminal.Controllers
     {
         public DefinitiveController(App app) : base(app)
         {
-            App.game.BaseSudoku?.GetOrderedSquares().First().ToggleSelect();
+            App.game.sudoku?.GetOrderedSquares().First().ToggleSelect();
         }
 
         public override View<DefinitiveController> CreateView()
         {
-            App.game.TransitionState(new DefinitiveState());
+            App.game.SwitchState(new DefinitiveState());
             return new GameView<DefinitiveController>(this);
         }
 

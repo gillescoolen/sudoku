@@ -24,7 +24,7 @@ namespace Sudoku.Domain
 
         public Board Board { get; private set; }
 
-        public BaseSudoku? BaseSudoku
+        public BaseSudoku? sudoku
         {
             get => context.Sudoku();
             set
@@ -49,20 +49,20 @@ namespace Sudoku.Domain
 
         public void Solve()
         {
-            if (BaseSudoku == null) return;
-            BaseSudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
-            context.GetStrategy()?.Solve(BaseSudoku, context.GetState()!);
+            if (sudoku == null) return;
+            sudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
+            context.GetStrategy()?.Solve(sudoku, context.GetState()!);
             Notify(this);
         }
 
         public void ValidateSudoku(bool update = true)
         {
-            if (BaseSudoku == null) return;
-            BaseSudoku.ValidateSudoku(context.GetState()!, true);
+            if (sudoku == null) return;
+            sudoku.ValidateSudoku(context.GetState()!, true);
             if (update) Notify(this);
         }
 
-        public void TransitionState(State state)
+        public void SwitchState(State state)
         {
             context.SwitchState(state);
             Board = context.CreateBoard();
@@ -76,8 +76,8 @@ namespace Sudoku.Domain
 
         public void EnterValue(string value)
         {
-            if (int.Parse(value) > BaseSudoku?.MaxValue()) return;
-            var orderedSquares = BaseSudoku?.GetOrderedSquares();
+            if (int.Parse(value) > sudoku?.MaxValue()) return;
+            var orderedSquares = sudoku?.GetOrderedSquares();
             var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
             if (currentLeaf == null) return;
             context.EnterValue(value, currentLeaf);

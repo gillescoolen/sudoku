@@ -9,8 +9,8 @@ namespace Sudoku.Domain.Models.Interfaces
     public interface IGame : IObservable<Game>
     {
         public IContext GetContext();
-        public void TransitionState(State state);
-        public BaseSudoku? BaseSudoku { get; set; }
+        public void SwitchState(State state);
+        public BaseSudoku? sudoku { get; set; }
         public Board Board { get; }
         public void SelectSquare(Coordinate coordinate);
         public void EnterValue(string value);

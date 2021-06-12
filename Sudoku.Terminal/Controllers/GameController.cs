@@ -35,7 +35,7 @@ namespace Sudoku.Terminal.Controllers
 
         public BaseSudoku GetSudoku()
         {
-            return App.game.BaseSudoku;
+            return App.game.sudoku;
         }
 
         public Board GetBoard()
