@@ -4,7 +4,7 @@ namespace Sudoku.Domain.Models.Interfaces
     {
         public void Reset();
         public void BuildDivider(bool horizontal);
-        public void BuildSquare(SquareLeaf squareLeaf);
+        public void BuildSquare(SquareLeaf square);
         public void BuildRow();
     }
 }

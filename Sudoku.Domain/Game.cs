@@ -77,10 +77,15 @@ namespace Sudoku.Domain
         public void EnterValue(string value)
         {
             if (int.Parse(value) > sudoku?.MaxValue()) return;
+
             var orderedSquares = sudoku?.GetOrderedSquares();
-            var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
-            if (currentLeaf == null) return;
-            context.EnterValue(value, currentLeaf);
+
+            var currentSquare = orderedSquares?.FirstOrDefault(square => square.IsSelected);
+
+            if (currentSquare == null) return;
+
+            context.EnterValue(value, currentSquare);
+
             Notify(this);
         }
 

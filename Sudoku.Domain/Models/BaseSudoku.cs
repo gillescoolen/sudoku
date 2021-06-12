@@ -16,11 +16,11 @@ namespace Sudoku.Domain.Models
 
         public virtual List<SquareLeaf> GetOrderedSquares()
         {
-            return Sudokus.SelectMany(box => box.Find(leaf => !leaf.IsComposite()))
+            return Sudokus.SelectMany(box => box.Find(square => !square.IsComposite()))
                 .Cast<SquareLeaf>()
                 .OrderBy(square => square.Coordinate.Y)
                 .ThenBy(square => square.Coordinate.X)
-                .Distinct(new DistinctLeafComparer())
+                .Distinct(new SquareComparer())
                 .ToList();
         }
 

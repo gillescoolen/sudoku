@@ -6,9 +6,9 @@ namespace Sudoku.Domain.Models.Parts
     {
         public SquareLeaf SquareLeaf { get; }
 
-        public Square(SquareLeaf squareLeaf)
+        public Square(SquareLeaf square)
         {
-            SquareLeaf = squareLeaf;
+            SquareLeaf = square;
         }
 
         public void Accept(IDrawVisitor visitor)

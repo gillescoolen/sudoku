@@ -17,7 +17,12 @@ namespace Sudoku.Domain.Strategies
             for (var i = 1; i <= maxValue; ++i)
             {
                 emptySquare.Value = $"{i}";
-                if (sudoku.ValidateSudoku(state) && Solve(sudoku, state)) return true;
+
+                if (sudoku.ValidateSudoku(state) && Solve(sudoku, state))
+                {
+                    return true;
+                }
+
                 emptySquare.Value = "0";
             }
             return false;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Models;
@@ -27,8 +26,8 @@ namespace Sudoku.Domain.Factories
         {
             var boards = GenerateBoards(sudokuData, size).ToList();
 
-            var boxWidth = size.CalculateWidth();
-            var boxHeight = size.CalculateHeight();
+            var boxWidth = size.CeilingSqrt();
+            var boxHeight = size.FloorSqrt();
 
             var boxes = new List<IComponent>();
 
@@ -65,7 +64,7 @@ namespace Sudoku.Domain.Factories
         private IEnumerable<SquareLeaf> GenerateBoards(string sudokuData, int size)
         {
             var boards = new List<SquareLeaf>();
-            var output = StringHelper.GetStringChunks(sudokuData, 1).ToList();
+            var output = GetStringChunks(sudokuData, 1).ToList();
             var dataPointCount = sudokuData.Length;
 
             for (var y = 0; y < size; ++y)
@@ -87,6 +86,11 @@ namespace Sudoku.Domain.Factories
                 .Where(square => square.Coordinate.Y >= minCoordinate.Y)
                 .Where(square => square.Coordinate.Y < maxCoordinate.Y)
                 .ToList();
+        }
+
+        private IEnumerable<string> GetStringChunks(string data, int chunkSize)
+        {
+            for (var i = 0; i < data.Length; i += chunkSize) yield return data.Substring(i, chunkSize);
         }
     }
 }

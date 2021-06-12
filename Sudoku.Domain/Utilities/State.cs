@@ -23,17 +23,18 @@ namespace Sudoku.Domain.Utilities
         public virtual void Select(Coordinate coordinate)
         {
             var orderedSquares = Context?.Sudoku()?.GetOrderedSquares();
-            var currentLeaf = orderedSquares?.FirstOrDefault(squareLeaf => squareLeaf.IsSelected);
-            if (currentLeaf == null || orderedSquares == null) return;
+            var currentSquare = orderedSquares?.FirstOrDefault(square => square.IsSelected);
 
-            var newCoordinate = new Coordinate(currentLeaf.Coordinate.X + coordinate.X, currentLeaf.Coordinate.Y + coordinate.Y);
-            var newLeaf = orderedSquares.FirstOrDefault(squareLeaf =>
-                squareLeaf.Coordinate.X == newCoordinate.X && squareLeaf.Coordinate.Y == newCoordinate.Y);
+            if (currentSquare == null || orderedSquares == null) return;
 
-            if (newLeaf == null) return;
+            var nextCoordinate = new Coordinate(currentSquare.Coordinate.X + coordinate.X, currentSquare.Coordinate.Y + coordinate.Y);
 
-            currentLeaf.ToggleSelect();
-            newLeaf.ToggleSelect();
+            var nextSquare = orderedSquares.FirstOrDefault(square => square.Coordinate.X == nextCoordinate.X && square.Coordinate.Y == nextCoordinate.Y);
+
+            if (nextSquare == null) return;
+
+            currentSquare.ToggleSelect();
+            nextSquare.ToggleSelect();
         }
     }
 }

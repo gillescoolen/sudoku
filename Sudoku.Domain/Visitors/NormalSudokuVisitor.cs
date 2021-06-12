@@ -11,9 +11,12 @@ namespace Sudoku.Domain.Visitors
         public Board Visit(BaseSudoku sudoku)
         {
             var builder = new BoardBuilder();
-            var squares = sudoku.GetOrderedSquares();
+
             var boxes = sudoku.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
-            var totalWidth = squares.Max(squareLeaf => squareLeaf.Coordinate.X) + 1;
+
+            var squares = sudoku.GetOrderedSquares();
+            var totalWidth = squares.Max(square => square.Coordinate.X) + 1;
+
             var firstBox = sudoku.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
             var nextHorizontal = firstBox.FloorSqrt();
             var nextVertical = firstBox.CeilingSqrt();
@@ -22,7 +25,7 @@ namespace Sudoku.Domain.Visitors
             {
                 var square = squares[i];
                 var nextSquare = i + 1 > squares.Count - 1 ? null : squares[i + 1];
-                var bottomSquare = squares.FirstOrDefault(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1 && squareLeaf.Coordinate.X == square.Coordinate.X);
+                var bottomSquare = squares.FirstOrDefault(square => square.Coordinate.Y == square.Coordinate.Y + 1 && square.Coordinate.X == square.Coordinate.X);
                 var box = boxes.First(q => q.GetChildren().Contains(square));
 
                 builder.BuildSquare(square);
@@ -40,10 +43,10 @@ namespace Sudoku.Domain.Visitors
                 if ((square.Coordinate.Y + 1) % nextHorizontal != 0 || bottomSquare == null) continue;
 
                 var currentLeaves = squares
-                    .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y)
+                    .Where(square => square.Coordinate.Y == square.Coordinate.Y)
                     .ToList();
                 var nextLeaves = squares
-                    .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1)
+                    .Where(square => square.Coordinate.Y == square.Coordinate.Y + 1)
                     .ToList();
 
                 for (var Divider = 0; Divider < totalWidth; ++Divider)
