@@ -6,16 +6,16 @@ using Sudoku.Domain.Models;
 
 namespace Sudoku.Domain.Utilities
 {
-    public class DistinctLeafComparer : IEqualityComparer<CellLeaf>
+    public class SquareComparer : IEqualityComparer<SquareLeaf>
     {
-        public bool Equals(CellLeaf? x, CellLeaf? y)
+        public bool Equals(SquareLeaf? x, SquareLeaf? y)
         {
-            return x!.Position.Y == y!.Position.Y && x!.Position.X == y!.Position.X;
+            return x!.Coordinate.Y == y!.Coordinate.Y && x!.Coordinate.X == y!.Coordinate.X;
         }
 
-        public int GetHashCode(CellLeaf obj)
+        public int GetHashCode(SquareLeaf square)
         {
-            return HashCode.Combine(obj.IsLocked, obj.IsSelected, obj.Position);
+            return HashCode.Combine(square.IsLocked, square.IsSelected, square.Coordinate);
         }
     }
 }

@@ -12,8 +12,11 @@ namespace Sudoku.Terminal
         public static async Task Main(string[] args)
         {
             var services = new ServiceCollection();
+
             ConfigureServices(services);
+
             var serviceProvider = services.BuildServiceProvider();
+
             await serviceProvider.GetService<App>()!.Run(args);
         }
 

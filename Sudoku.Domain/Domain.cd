@@ -41,14 +41,14 @@
       <FileName>Factories\SudokuSamuraiFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Models.Parts.Cell" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Models.Parts.Square" BaseTypeListCollapsed="true">
     <Position X="27" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Parts\Cell.cs</FileName>
+      <FileName>Models\Parts\Square.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="CellLeaf" />
+      <Property Name="SquareLeaf" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
@@ -97,11 +97,11 @@
       <FileName>Models\Sudokus\SamuraiSudoku.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Models.CellLeaf" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Models.SquareLeaf" BaseTypeListCollapsed="true">
     <Position X="23.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAEAAAABEAAgAQgAAAAAAACIQCAAAAAgBAAAAAg=</HashCode>
-      <FileName>Models\CellLeaf.cs</FileName>
+      <FileName>Models\SquareLeaf.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

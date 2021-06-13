@@ -28,9 +28,9 @@ namespace Sudoku.Domain.Builders
             board.Add(new Spacer(size));
         }
 
-        public void BuildCell(CellLeaf cellLeaf)
+        public void BuildSquare(SquareLeaf square)
         {
-            board.Add(new Cell(cellLeaf));
+            board.Add(new Square(square));
         }
 
         public void BuildRow()

@@ -1,6 +1,7 @@
 using System.Text;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Terminal.Controllers
 {
@@ -13,9 +14,9 @@ namespace Sudoku.Terminal.Controllers
         public abstract IDrawVisitor Visitor(StringBuilder builder);
         public abstract void Switch();
 
-        public void Select(Position position)
+        public void Move(Coordinate coordinate)
         {
-            App.game.SelectCell(position);
+            App.game.SelectSquare(coordinate);
         }
 
         public void EnterValue(string value)
@@ -35,7 +36,7 @@ namespace Sudoku.Terminal.Controllers
 
         public BaseSudoku GetSudoku()
         {
-            return App.game.BaseSudoku;
+            return App.game.sudoku;
         }
 
         public Board GetBoard()

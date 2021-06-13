@@ -9,10 +9,10 @@ namespace Sudoku.Terminal.Views
     public class GameView<T> : View<T> where T : GameController<T>
     {
         public GameView(T controller) : base(controller,
-            new Input((int)ConsoleKey.LeftArrow, () => controller.Select(new Position(-1, 0))),
-            new Input((int)ConsoleKey.UpArrow, () => controller.Select(new Position(0, -1))),
-            new Input((int)ConsoleKey.RightArrow, () => controller.Select(new Position(1, 0))),
-            new Input((int)ConsoleKey.DownArrow, () => controller.Select(new Position(0, 1))),
+            new Input((int)ConsoleKey.LeftArrow, () => controller.Move(new Coordinate(-1, 0))),
+            new Input((int)ConsoleKey.UpArrow, () => controller.Move(new Coordinate(0, -1))),
+            new Input((int)ConsoleKey.RightArrow, () => controller.Move(new Coordinate(1, 0))),
+            new Input((int)ConsoleKey.DownArrow, () => controller.Move(new Coordinate(0, 1))),
             new Input((int)ConsoleKey.D1, () => controller.EnterValue("1")),
             new Input((int)ConsoleKey.D2, () => controller.EnterValue("2")),
             new Input((int)ConsoleKey.D3, () => controller.EnterValue("3")),

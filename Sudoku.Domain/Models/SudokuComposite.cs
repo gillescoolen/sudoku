@@ -17,32 +17,27 @@ namespace Sudoku.Domain.Models
 
         public bool Valid(State state, bool setValid)
         {
-            var cells = GetChildren().SelectMany(q => q.GetChildren()).Cast<CellLeaf>().ToList();
+            var squares = GetChildren().SelectMany(square => square.GetChildren()).Cast<SquareLeaf>().ToList();
 
-            foreach (var cell in cells.Where(cell => !cell.IsLocked && state.HasCellValue(cell)))
+            foreach (var square in squares.Where(square => !square.IsLocked && state.HasSquareValue(square)))
             {
-                var rowColumn = cells.Where(c => (c.Position.Y == cell.Position.Y || c.Position.X == cell.Position.X) && c != cell)
-                    .FirstOrDefault(c => state.CheckEquality(c, cell));
+                var rowColumn = squares.Where(childSquare => (childSquare.Coordinate.Y == square.Coordinate.Y || childSquare.Coordinate.X == square.Coordinate.X) && childSquare != square)
+                    .FirstOrDefault(childSquare => state.CheckEquality(childSquare, square));
 
                 if (rowColumn != null)
                 {
-                    if (setValid) cell.IsValid = false;
-                    else
-                    {
-                        return false;
-                    }
+                    if (setValid) square.IsValid = false;
+                    else return false;
                 }
 
-                var box = Find(c => c.GetChildren().Contains(cell)).First();
+                var box = Find(box => box.GetChildren().Contains(square)).First();
 
-                if (box.GetChildren().Cast<CellLeaf>()
-                    .FirstOrDefault(c => state.CheckEquality(c, cell) && c != cell) == null) continue;
+                if (box.GetChildren().Cast<SquareLeaf>()
+                    .FirstOrDefault(childSquare =>
+                        state.CheckEquality(childSquare, square) && childSquare != square) == null) continue;
 
-                if (setValid) cell.IsValid = false;
-                else
-                {
-                    return false;
-                }
+                if (setValid) square.IsValid = false;
+                else return false;
             }
 
             return true;
@@ -53,9 +48,9 @@ namespace Sudoku.Domain.Models
             return true;
         }
 
-        public IEnumerable<IComponent> Find(Func<IComponent, bool> finder)
+        public IEnumerable<IComponent> Find(Func<IComponent, bool> search)
         {
-            return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
+            return GetChildren().Descendants(component => component.GetChildren()).Where(search);
         }
 
         public IEnumerable<IComponent> GetChildren()

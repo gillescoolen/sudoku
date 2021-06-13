@@ -11,12 +11,12 @@ namespace Sudoku.Terminal.Controllers
     {
         public HintController(App app) : base(app)
         {
-            App.game.BaseSudoku?.GetOrderedCells().First().ToggleSelect();
+            App.game.sudoku?.GetOrderedSquares().First().ToggleSelect();
         }
 
         public override View<HintController> CreateView()
         {
-            App.game.TransitionState(new HintState());
+            App.game.SwitchState(new HintState());
             return new GameView<HintController>(this);
         }
 

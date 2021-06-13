@@ -1,5 +1,6 @@
 #nullable enable
 
+using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 
@@ -9,23 +10,23 @@ namespace Sudoku.Domain.Utilities
     {
         private State? state;
         private IStrategy? strategy;
-        private BaseSudoku? baseSudoku;
+        private BaseSudoku? sudoku;
 
         public State? GetState()
         {
             return state;
         }
 
-        public void SetBaseSudoku(BaseSudoku? sudoku)
+        public void SetSudoku(BaseSudoku? sudoku)
         {
-            baseSudoku = sudoku;
-            if (baseSudoku == null) return;
+            this.sudoku = sudoku;
+            if (this.sudoku == null) return;
             SetStrategy(sudoku!.GetSolverStrategy());
         }
 
-        public BaseSudoku? BaseSudoku()
+        public BaseSudoku? Sudoku()
         {
-            return baseSudoku;
+            return sudoku;
         }
 
         public IStrategy? GetStrategy()
@@ -33,18 +34,18 @@ namespace Sudoku.Domain.Utilities
             return strategy;
         }
 
-        public void TransitionTo(State newState)
+        public void SwitchState(State newState)
         {
             state = newState;
             state.SetContext(this);
         }
 
-        public void EnterValue(string value, CellLeaf cell)
+        public void EnterValue(string value, SquareLeaf square)
         {
-            state?.EnterValue(value, cell);
+            state?.EnterValue(value, square);
         }
 
-        public Board Construct()
+        public Board CreateBoard()
         {
             return state?.Construct() ?? new Board();
         }

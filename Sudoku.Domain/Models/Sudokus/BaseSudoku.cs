@@ -3,7 +3,7 @@ using System.Linq;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Utilities;
 
-namespace Sudoku.Domain.Models
+namespace Sudoku.Domain.Models.Sudokus
 {
     public abstract class BaseSudoku
     {
@@ -14,13 +14,13 @@ namespace Sudoku.Domain.Models
             Sudokus = sudokus;
         }
 
-        public virtual List<CellLeaf> GetOrderedCells()
+        public virtual List<SquareLeaf> GetOrderedSquares()
         {
-            return Sudokus.SelectMany(box => box.Find(leaf => !leaf.IsComposite()))
-                .Cast<CellLeaf>()
-                .OrderBy(c => c.Position.Y)
-                .ThenBy(c => c.Position.X)
-                .Distinct(new DistinctLeafComparer())
+            return Sudokus.SelectMany(box => box.Find(square => !square.IsComposite()))
+                .Cast<SquareLeaf>()
+                .OrderBy(square => square.Coordinate.Y)
+                .ThenBy(square => square.Coordinate.X)
+                .Distinct(new SquareComparer())
                 .ToList();
         }
 
@@ -28,7 +28,7 @@ namespace Sudoku.Domain.Models
         {
             return Sudokus.First()
                 .GetChildren()
-                .Max(q => q.GetChildren().Count());
+                .Max(box => box.GetChildren().Count());
         }
 
         public Board Accept(IVisitor visitor)
@@ -38,14 +38,16 @@ namespace Sudoku.Domain.Models
 
         private IEnumerable<IComponent> GetSudokus()
         {
-            return Sudokus.Where(s => s.GetChildren().Count() > 2).ToList();
+            return Sudokus
+                .Where(sudoku => sudoku.GetChildren().Count() > 2)
+                .ToList();
         }
 
         public abstract IStrategy GetSolverStrategy();
 
         public virtual bool ValidateSudoku(State state, bool setValid = false)
         {
-            GetOrderedCells().ForEach(c => c.IsValid = true);
+            GetOrderedSquares().ForEach(square => square.IsValid = true);
             return GetSudokus().All(sudoku => sudoku.Valid(state, setValid));
         }
     }

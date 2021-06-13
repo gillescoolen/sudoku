@@ -6,6 +6,7 @@ using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.States;
 using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Domain
 {
@@ -24,13 +25,13 @@ namespace Sudoku.Domain
 
         public Board Board { get; private set; }
 
-        public BaseSudoku? BaseSudoku
+        public BaseSudoku? sudoku
         {
-            get => context.BaseSudoku();
+            get => context.Sudoku();
             set
             {
-                context.SetBaseSudoku(value);
-                Board = context.Construct();
+                context.SetSudoku(value);
+                Board = context.CreateBoard();
                 Notify(this);
             }
         }
@@ -38,8 +39,8 @@ namespace Sudoku.Domain
         public Game(IContext context)
         {
             this.context = context;
-            context.TransitionTo(new DefinitiveState());
-            Board = context.Construct();
+            context.SwitchState(new DefinitiveState());
+            Board = context.CreateBoard();
         }
 
         public IContext GetContext()
@@ -49,38 +50,50 @@ namespace Sudoku.Domain
 
         public void Solve()
         {
-            if (BaseSudoku == null) return;
-            BaseSudoku.GetOrderedCells().ForEach(c => c.Value = "0");
-            context.GetStrategy()?.Solve(BaseSudoku, context.GetState()!);
+            if (sudoku == null) return;
+
+            sudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
+
+            context.GetStrategy()?.Solve(sudoku, context.GetState()!);
+
             Notify(this);
         }
 
         public void ValidateSudoku(bool update = true)
         {
-            if (BaseSudoku == null) return;
-            BaseSudoku.ValidateSudoku(context.GetState()!, true);
+            if (sudoku == null) return;
+
+            sudoku.ValidateSudoku(context.GetState()!, true);
+
             if (update) Notify(this);
         }
 
-        public void TransitionState(State state)
+        public void SwitchState(State state)
         {
-            context.TransitionTo(state);
-            Board = context.Construct();
+            context.SwitchState(state);
+
+            Board = context.CreateBoard();
         }
 
-        public void SelectCell(Position position)
+        public void SelectSquare(Coordinate coordinate)
         {
-            context.GetState()!.Select(position);
+            context.GetState()!.Select(coordinate);
+
             Notify(this);
         }
 
         public void EnterValue(string value)
         {
-            if (int.Parse(value) > BaseSudoku?.MaxValue()) return;
-            var orderedCells = BaseSudoku?.GetOrderedCells();
-            var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
-            if (currentLeaf == null) return;
-            context.EnterValue(value, currentLeaf);
+            if (int.Parse(value) > sudoku?.MaxValue()) return;
+
+            var orderedSquares = sudoku?.GetOrderedSquares();
+
+            var currentSquare = orderedSquares?.FirstOrDefault(square => square.IsSelected);
+
+            if (currentSquare == null) return;
+
+            context.EnterValue(value, currentSquare);
+
             Notify(this);
         }
 

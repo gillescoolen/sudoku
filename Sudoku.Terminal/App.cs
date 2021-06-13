@@ -11,16 +11,16 @@ namespace Sudoku.Terminal
     public class App : IObserver<IGame>
     {
         public IGame game;
-        public readonly ISudokuParser reader;
+        public readonly ISudokuParser parser;
         private IDisposable unSubscriber;
         private Controller controller;
         private View view;
-        private bool running = true;
+        private bool isRunning = true;
 
-        public App(IGame game, ISudokuParser reader)
+        public App(IGame game, ISudokuParser parser)
         {
             this.game = game;
-            this.reader = reader;
+            this.parser = parser;
         }
 
         public async Task Run(string[] args)
@@ -39,7 +39,7 @@ namespace Sudoku.Terminal
         public void Exit()
         {
             OnCompleted();
-            running = false;
+            isRunning = false;
             Environment.Exit(1);
         }
 
@@ -64,7 +64,7 @@ namespace Sudoku.Terminal
 
         private void Input()
         {
-            while (running)
+            while (isRunning)
             {
                 var key = Console.ReadKey(true);
 

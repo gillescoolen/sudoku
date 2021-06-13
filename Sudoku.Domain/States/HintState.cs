@@ -8,27 +8,27 @@ namespace Sudoku.Domain.States
 {
     public class HintState : State
     {
-        public override void EnterValue(string value, CellLeaf cell)
+        public override void EnterValue(string value, SquareLeaf square)
         {
-            cell.HelpValue = value;
+            square.HelpValue = value;
         }
 
         public override Board? Construct()
         {
-            return Context?.BaseSudoku()?.Accept(new NormalSudokuVisitor());
+            return Context?.Sudoku()?.Accept(new NormalSudokuVisitor());
         }
 
-        public override bool CheckEquality(CellLeaf leftCell, CellLeaf rightCell)
+        public override bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare)
         {
-            return HasCellValue(leftCell) && HasCellValue(rightCell) &&
-                leftCell.HelpValue == rightCell.HelpValue ||
-                !leftCell.Value.Equals("0") && leftCell.Value == rightCell.HelpValue ||
-                !rightCell.Value.Equals("0") && rightCell.Value == leftCell.HelpValue;
+            return HasSquareValue(leftSquare) && HasSquareValue(rightSquare) &&
+                leftSquare.HelpValue == rightSquare.HelpValue ||
+                !leftSquare.Value.Equals("0") && leftSquare.Value == rightSquare.HelpValue ||
+                !rightSquare.Value.Equals("0") && rightSquare.Value == leftSquare.HelpValue;
         }
 
-        public override bool HasCellValue(CellLeaf cell)
+        public override bool HasSquareValue(SquareLeaf square)
         {
-            return !cell.HelpValue.Equals("0");
+            return !square.HelpValue.Equals("0");
         }
     }
 }

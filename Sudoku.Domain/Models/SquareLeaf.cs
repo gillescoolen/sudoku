@@ -6,7 +6,7 @@ using Sudoku.Domain.Utilities;
 
 namespace Sudoku.Domain.Models
 {
-    public class CellLeaf : IComponent
+    public class SquareLeaf : IComponent
     {
         private bool isLocked;
         public bool IsLocked
@@ -19,7 +19,7 @@ namespace Sudoku.Domain.Models
         public bool IsSelected { get; private set; }
         private string value;
         private string helpValue = "0";
-        public Position Position { get; }
+        public Coordinate Coordinate { get; }
 
         public string Value
         {
@@ -32,7 +32,7 @@ namespace Sudoku.Domain.Models
                 helpValue = "0";
             }
         }
-        
+
         public string HelpValue
         {
             get => helpValue;
@@ -44,18 +44,18 @@ namespace Sudoku.Domain.Models
             }
         }
 
-        public CellLeaf(bool isLocked, string value, Position position)
+        public SquareLeaf(bool isLocked, string value, Coordinate coordinate)
         {
             IsLocked = isLocked;
             this.value = value;
-            Position = position;
+            Coordinate = coordinate;
         }
 
-        public CellLeaf(bool isLocked, Position position)
+        public SquareLeaf(bool isLocked, Coordinate coordinate)
         {
             IsLocked = isLocked;
             value = "";
-            Position = position;
+            Coordinate = coordinate;
         }
 
         public void ToggleSelect()
@@ -67,7 +67,7 @@ namespace Sudoku.Domain.Models
         {
             return IsValid;
         }
-        
+
         public bool Valid()
         {
             return IsValid;
@@ -83,7 +83,7 @@ namespace Sudoku.Domain.Models
             return GetChildren();
         }
 
-        public bool IsSpacingCell()
+        public bool IsSpacingSquare()
         {
             return IsLocked && value.Length == 0;
         }

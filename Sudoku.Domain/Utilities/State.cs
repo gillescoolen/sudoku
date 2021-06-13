@@ -15,25 +15,26 @@ namespace Sudoku.Domain.Utilities
             Context = context;
         }
 
-        public abstract void EnterValue(string value, CellLeaf cell);
+        public abstract void EnterValue(string value, SquareLeaf square);
         public abstract Board? Construct();
-        public abstract bool CheckEquality(CellLeaf leftCell, CellLeaf rightCell);
-        public abstract bool HasCellValue(CellLeaf cell);
+        public abstract bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare);
+        public abstract bool HasSquareValue(SquareLeaf square);
 
-        public virtual void Select(Position position)
+        public virtual void Select(Coordinate coordinate)
         {
-            var orderedCells = Context?.BaseSudoku()?.GetOrderedCells();
-            var currentLeaf = orderedCells?.FirstOrDefault(cellLeaf => cellLeaf.IsSelected);
-            if (currentLeaf == null || orderedCells == null) return;
+            var orderedSquares = Context?.Sudoku()?.GetOrderedSquares();
+            var currentSquare = orderedSquares?.FirstOrDefault(square => square.IsSelected);
 
-            var newPosition = new Position(currentLeaf.Position.X + position.X, currentLeaf.Position.Y + position.Y);
-            var newLeaf = orderedCells.FirstOrDefault(cellLeaf =>
-                cellLeaf.Position.X == newPosition.X && cellLeaf.Position.Y == newPosition.Y);
+            if (currentSquare == null || orderedSquares == null) return;
 
-            if (newLeaf == null) return;
+            var nextCoordinate = new Coordinate(currentSquare.Coordinate.X + coordinate.X, currentSquare.Coordinate.Y + coordinate.Y);
 
-            currentLeaf.ToggleSelect();
-            newLeaf.ToggleSelect();
+            var nextSquare = orderedSquares.FirstOrDefault(square => square.Coordinate.X == nextCoordinate.X && square.Coordinate.Y == nextCoordinate.Y);
+
+            if (nextSquare == null) return;
+
+            currentSquare.ToggleSelect();
+            nextSquare.ToggleSelect();
         }
     }
 }

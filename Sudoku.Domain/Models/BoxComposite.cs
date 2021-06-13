@@ -17,9 +17,9 @@ namespace Sudoku.Domain.Models
 
         public bool Valid(State state, bool setValid)
         {
-            var children = Find(c => !c.IsComposite()).Cast<CellLeaf>();
-            var cellLeaves = children as CellLeaf[] ?? children.ToArray();
-            var doubles = cellLeaves.GroupBy(g => g.Value).Where(g => g.Count() > 1 && !g.Key.Equals("0"))
+            var children = Find(c => !c.IsComposite()).Cast<SquareLeaf>();
+            var squareLeaves = children as SquareLeaf[] ?? children.ToArray();
+            var doubles = squareLeaves.GroupBy(g => g.Value).Where(g => g.Count() > 1 && !g.Key.Equals("0"))
                 .Select(g => g.Key);
 
             return doubles.Any();
