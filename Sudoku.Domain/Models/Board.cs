@@ -5,11 +5,11 @@ namespace Sudoku.Domain.Models
 {
     public class Board
     {
-        public List<IPart> parts { get; } = new();
+        public List<ICharacter> boxes { get; } = new();
 
-        public void Add(IPart part)
+        public void Add(ICharacter part)
         {
-            parts.Add(part);
+            boxes.Add(part);
         }
     }
 }

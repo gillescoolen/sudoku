@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Sudoku.Domain.Models;
 
-namespace Sudoku.Domain.Utilities
+namespace Sudoku.Domain.Utils
 {
     public class SquareComparer : IEqualityComparer<SquareLeaf>
     {
@@ -15,7 +15,7 @@ namespace Sudoku.Domain.Utilities
 
         public int GetHashCode(SquareLeaf square)
         {
-            return HashCode.Combine(square.IsLocked, square.IsSelected, square.Coordinate);
+            return HashCode.Combine(square.Locked, square.Selected, square.Coordinate);
         }
     }
 }

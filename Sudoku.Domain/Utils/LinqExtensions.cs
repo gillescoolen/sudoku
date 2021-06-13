@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sudoku.Domain.Utilities
+namespace Sudoku.Domain.Utils
 {
     public static class LinqExtensions
     {

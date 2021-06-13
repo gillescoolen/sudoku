@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 
 namespace Sudoku.Domain.Models
 {
@@ -19,10 +19,10 @@ namespace Sudoku.Domain.Models
         {
             var squares = GetChildren().SelectMany(square => square.GetChildren()).Cast<SquareLeaf>().ToList();
 
-            foreach (var square in squares.Where(square => !square.IsLocked && state.HasSquareValue(square)))
+            foreach (var square in squares.Where(square => !square.Locked && state.HasSquareValue(square)))
             {
                 var rowColumn = squares.Where(childSquare => (childSquare.Coordinate.Y == square.Coordinate.Y || childSquare.Coordinate.X == square.Coordinate.X) && childSquare != square)
-                    .FirstOrDefault(childSquare => state.CheckEquality(childSquare, square));
+                    .FirstOrDefault(childSquare => state.Check(childSquare, square));
 
                 if (rowColumn != null)
                 {
@@ -34,7 +34,7 @@ namespace Sudoku.Domain.Models
 
                 if (box.GetChildren().Cast<SquareLeaf>()
                     .FirstOrDefault(childSquare =>
-                        state.CheckEquality(childSquare, square) && childSquare != square) == null) continue;
+                        state.Check(childSquare, square) && childSquare != square) == null) continue;
 
                 if (setValid) square.IsValid = false;
                 else return false;
@@ -43,7 +43,7 @@ namespace Sudoku.Domain.Models
             return true;
         }
 
-        public bool IsComposite()
+        public bool Composite()
         {
             return true;
         }

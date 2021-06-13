@@ -168,11 +168,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.Context" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Utils.Context" BaseTypeListCollapsed="true">
     <Position X="4.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EAAAAEAAAAAAAAAAIAAAAAEAAAABAAAEAwAAAAAUAAA=</HashCode>
-      <FileName>Utilities\Context.cs</FileName>
+      <FileName>Utils\Context.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="state" />
@@ -180,48 +180,48 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.DimensionHelper">
+  <Class Name="Sudoku.Domain.Utils.DimensionHelper">
     <Position X="21.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAA=</HashCode>
-      <FileName>Utilities\DimensionHelper.cs</FileName>
+      <FileName>Utils\DimensionHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.SquareComparer" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Utils.SquareComparer" BaseTypeListCollapsed="true">
     <Position X="19.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Utilities\DistinctLeafComparer.cs</FileName>
+      <FileName>Utils\DistinctLeafComparer.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.LinqExtensions">
+  <Class Name="Sudoku.Domain.Utils.LinqExtensions">
     <Position X="17.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Utilities\LinqExtensions.cs</FileName>
+      <FileName>Utils\LinqExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.Provider&lt;T&gt;" Collapsed="true">
+  <Class Name="Sudoku.Domain.Utils.Provider&lt;T&gt;" Collapsed="true">
     <Position X="11.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAA=</HashCode>
-      <FileName>Utilities\Provider.cs</FileName>
+      <FileName>Utils\Provider.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.State" Collapsed="true">
+  <Class Name="Sudoku.Domain.Utils.State" Collapsed="true">
     <Position X="8" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgIAgAAAAAAAAAAAAAAIAAAAAAgAQAAEAAA=</HashCode>
-      <FileName>Utilities\State.cs</FileName>
+      <FileName>Utils\State.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.UnSubscriber&lt;T&gt;" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Utils.UnSubscriber&lt;T&gt;" BaseTypeListCollapsed="true">
     <Position X="17.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Utilities\UnSubscriber.cs</FileName>
+      <FileName>Utils\UnSubscriber.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

@@ -11,7 +11,7 @@ namespace Sudoku.Terminal.Controllers
     {
         public HintController(App app) : base(app)
         {
-            App.game.sudoku?.GetOrderedSquares().First().ToggleSelect();
+            App.game.sudoku?.GetSquares().First().Select();
         }
 
         public override View<HintController> CreateView()

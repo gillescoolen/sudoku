@@ -15,17 +15,6 @@ namespace Sudoku.Domain.Models
             Y = y;
         }
 
-        public override bool Equals(object? data)
-        {
-            if (data == null || GetType() != data.GetType())
-            {
-                return false;
-            }
-
-            var coordinate = (Coordinate)data;
-            return Equals(coordinate);
-        }
-
         protected bool Equals(Coordinate other)
         {
             return X == other.X && Y == other.Y;
@@ -34,6 +23,18 @@ namespace Sudoku.Domain.Models
         public override int GetHashCode()
         {
             return HashCode.Combine(X, Y);
+        }
+
+        public override bool Equals(object? coordinateData)
+        {
+            if (coordinateData == null || GetType() != coordinateData.GetType())
+            {
+                return false;
+            }
+
+            var coordinate = (Coordinate)coordinateData;
+
+            return Equals(coordinate);
         }
     }
 }

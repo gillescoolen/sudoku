@@ -7,11 +7,11 @@ using Sudoku.Domain.Models.Parts;
 namespace Sudoku.Tests
 {
     [TestFixture]
-    public class PartVisitTests
+    public class PrintVisitorTests
     {
         private Mock<IPrintVisitor> PrintVisitor;
 
-        private static object[] parts =
+        private static object[] characters =
         {
             new object[] {new Row()},
             new object[] {new Spacer(1)},
@@ -31,8 +31,8 @@ namespace Sudoku.Tests
             PrintVisitor.Setup(visitor => visitor.Visit(It.IsAny<Divider>())).Verifiable();
         }
 
-        [TestCaseSource(nameof(parts))]
-        public void Accept_WithPart_Runs(IPart part)
+        [TestCaseSource(nameof(characters))]
+        public void Accept_Method_Works(ICharacter part)
         {
             Assert.DoesNotThrow(() => part.Accept(PrintVisitor.Object));
         }

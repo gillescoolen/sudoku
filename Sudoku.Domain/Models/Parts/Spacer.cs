@@ -2,7 +2,7 @@ using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Domain.Models.Parts
 {
-    public class Spacer : IPart
+    public class Spacer : ICharacter
     {
         public int Size { get; }
 

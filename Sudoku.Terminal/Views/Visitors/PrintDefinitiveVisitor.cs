@@ -14,46 +14,43 @@ namespace Sudoku.Terminal.Views.Visitors
         {
             this.stringBuilder = stringBuilder;
         }
-        public void Visit(Divider divider)
-        {
-            stringBuilder.Append(divider.Horizontal ? " - " : "|");
-        }
 
         public void Visit(Square square)
         {
-            // var color = $"{Color.FromName("white").ToArgb():x6}";
-            // var content = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? "   " : $" {square.SquareLeaf.Value} ";
+            var color = $"{Color.FromName("White").ToArgb():x6}";
 
-            // if (square.SquareLeaf.IsLocked && !square.SquareLeaf.IsSelected)
-            // {
-            //     color = $"{Color.FromName("yellow").ToArgb():x6}";
-            // }
+            var text =
+                square.SquareLeaf.Value.Equals("0") ||
+                square.SquareLeaf.Value.Equals("")
+                    ? "   "
+                    : $" {square.SquareLeaf.Value} ";
 
-            // if (square.SquareLeaf.IsSelected)
-            // {
-            //     color = $"{Color.FromName("cyan").ToArgb():x6}";
-            //     content = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? " x " : $" {square.SquareLeaf.Value} ";
-            // }
-
-            // color = square.SquareLeaf.Valid() || square.SquareLeaf.IsLocked || square.SquareLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
-
-            // stringBuilder.Append(content.Pastel(color));
-            var font = "white";
-            var text = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? "   " : $" {square.SquareLeaf.Value} ";
-
-            if (square.SquareLeaf.IsLocked && !square.SquareLeaf.IsSelected)
+            if (square.SquareLeaf.Locked && !square.SquareLeaf.Selected)
             {
-                font = "yellow";
+                color = $"{Color.FromName("Orange").ToArgb():x6}";
             }
-            else if (square.SquareLeaf.IsSelected)
+            else if (square.SquareLeaf.Selected)
             {
-                font = "cyan";
-                text = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? " x " : $" {square.SquareLeaf.Value} ";
+                color = $"{Color.FromName("MediumSlateBlue").ToArgb():x6}";
+                text =
+                    square.SquareLeaf.Value.Equals("0") ||
+                    square.SquareLeaf.Value.Equals("")
+                        ? " O "
+                        : $" {square.SquareLeaf.Value} ";
             }
 
-            font = square.SquareLeaf.Valid() || square.SquareLeaf.IsLocked || square.SquareLeaf.IsSelected ? font : "red";
+            color =
+                square.SquareLeaf.Valid() ||
+                square.SquareLeaf.Locked ||
+                square.SquareLeaf.Selected
+                    ? color : $"{Color.FromName("Crimson").ToArgb():x6}";
+            ;
 
-            stringBuilder.Append(text.Pastel($"{Color.FromName(font).ToArgb():x6}"));
+            stringBuilder.Append(text.Pastel(color));
+        }
+        public void Visit(Divider divider)
+        {
+            stringBuilder.Append(divider.Horizontal ? " - " : "|");
         }
 
         public void Visit(Row row)

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Sudoku.Domain;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 using Sudoku.Parser;
 
 namespace Sudoku.Terminal

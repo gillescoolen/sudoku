@@ -11,84 +11,67 @@ namespace Sudoku.Tests
     [TestFixture]
     public class HintStateTests
     {
-        private SquareLeaf square;
+        private SquareLeaf originalSquare;
         private BaseSudoku sudoku;
 
         [SetUp]
         public void Setup()
         {
-            square = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "8" };
-            sudoku = CorrectBaseSudokuData.BaseSudoku;
+            sudoku = SudokuData.BaseSudoku;
+            originalSquare = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "1" };
         }
 
         [Test]
-        public void GetValueFromSquare_SquareWithValue_SetsNewValue()
+        public void Square_Set_Value()
         {
             var state = new HintState();
 
-            state.EnterValue("2", square);
+            state.SetValue("9", originalSquare);
 
-            Assert.AreEqual("2", square.HintValue);
+            Assert.AreEqual("9", originalSquare.HintValue);
         }
 
         [Test]
-        public void CheckEqualityOfSquares_EqualSquares_ReturnsTrue()
-        {
-            var squareTwo = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "8" };
-            var state = new HintState();
-
-            var resultOne = state.CheckEquality(square, squareTwo);
-            var resultTwo = state.CheckEquality(square, squareTwo);
-
-            Assert.IsTrue(resultOne);
-            Assert.IsTrue(resultTwo);
-        }
-
-        [Test]
-        public void CheckEqualityOfSquares_UnEqualSquares_ReturnsFalse()
-        {
-            var squareTwo = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "9" };
-            var state = new HintState();
-
-            var resultOne = state.CheckEquality(square, squareTwo);
-            var resultTwo = state.CheckEquality(square, squareTwo);
-
-            Assert.IsFalse(resultOne);
-            Assert.IsFalse(resultTwo);
-        }
-
-        [Test]
-        public void SquareHasValue_WithValue_ReturnsTrue()
+        public void Square_Has_Value()
         {
             var state = new HintState();
 
-            var result = state.HasSquareValue(square);
+            var result = state.HasSquareValue(originalSquare);
 
             Assert.IsTrue(result);
         }
 
         [Test]
-        public void SquareHasValue_WithoutValue_ReturnsFalse()
+        public void Square_Has_No_Value()
         {
-            square.HintValue = "0";
-            var state = new HintState();
+            originalSquare.HintValue = "0";
 
-            var result = state.HasSquareValue(square);
+            var state = new HintState();
+            var result = state.HasSquareValue(originalSquare);
 
             Assert.IsFalse(result);
         }
 
         [Test]
-        public void ConstructsField_WithValidBaseSudoku_ReturnsField()
+        public void Square_Check_Equal()
         {
             var state = new HintState();
-            var context = new Mock<IContext>();
-            context.Setup(c => c.Sudoku()).Returns(sudoku);
+            var square = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "1" };
 
-            state.SetContext(context.Object);
-            var result = state.Construct();
+            var result = state.Check(originalSquare, square);
 
-            Assert.IsNotNull(result);
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Square_Check_Different()
+        {
+            var state = new HintState();
+            var square = new SquareLeaf(false, "0", new Coordinate(0, 0)) { HintValue = "2" };
+
+            var result = state.Check(originalSquare, square);
+
+            Assert.IsFalse(result);
         }
     }
 }

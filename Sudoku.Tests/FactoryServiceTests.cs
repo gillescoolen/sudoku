@@ -3,7 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Services;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 using Sudoku.Tests.TestData;
 
 namespace Sudoku.Tests
@@ -19,36 +19,27 @@ namespace Sudoku.Tests
             factoryService = new FactoryService();
         }
 
-        [Test, TestCaseSource(typeof(CorrectBaseSudokuTypesTestData), nameof(CorrectBaseSudokuTypesTestData.TypesWithSudokuCount))]
-        public void FactoryService_WithTypeAndData_ReturnsBaseSudokuWithCorrectAmountOfSudokus(string type, string data, int validSudokuCount)
+        [Test, TestCaseSource(typeof(SudokuFormatData), nameof(SudokuFormatData.FormatsWithSolver))]
+        public void Factory_Has_Solver(string type, string data, Type strategyType)
         {
             var sudoku = factoryService.Create(type, data);
+            var strategy = sudoku.GetSolverStrategy();
 
-            Assert.IsNotNull(sudoku);
-            Assert.AreEqual(validSudokuCount, sudoku.Sudokus.Count);
+            Assert.AreEqual(strategyType, strategy.GetType());
         }
 
-        [Test, TestCaseSource(typeof(CorrectBaseSudokuTypesTestData), nameof(CorrectBaseSudokuTypesTestData.TypesWithLength))]
-        public void FactoryService_WithTypeAndData_ReturnsBaseSudokuWithCorrectAmountOfSquares(string type, string data, int validSquareCount)
+        [Test, TestCaseSource(typeof(SudokuFormatData), nameof(SudokuFormatData.FormatsWithLengths))]
+        public void Factory_Has_Squares(string type, string data, int validSquareCount)
         {
             var sudoku = factoryService.Create(type, data);
 
-            var squareCount = sudoku.Sudokus
-                .SelectMany(quadrant => quadrant.Find(leaf => !leaf.IsComposite()))
+            var squareCount = sudoku.Components
+                .SelectMany(box => box.Find(leaf => !leaf.Composite()))
                 .Cast<SquareLeaf>()
                 .Distinct(new SquareComparer())
                 .ToList().Count;
 
             Assert.AreEqual(validSquareCount, squareCount);
-        }
-
-        [Test, TestCaseSource(typeof(CorrectBaseSudokuTypesTestData), nameof(CorrectBaseSudokuTypesTestData.TypesWithSolveStrategy))]
-        public void FactoryService_WithTypeAndData_ReturnsBaseSudokuWithCorrectSolveStrategy(string type, string data, Type solveStrategy)
-        {
-            var sudoku = factoryService.Create(type, data);
-            var actualStrategy = sudoku.GetSolverStrategy();
-
-            Assert.AreEqual(solveStrategy, actualStrategy.GetType());
         }
     }
 }

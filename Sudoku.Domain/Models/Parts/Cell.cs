@@ -2,7 +2,7 @@ using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Domain.Models.Parts
 {
-    public class Square : IPart
+    public class Square : ICharacter
     {
         public SquareLeaf SquareLeaf { get; }
 

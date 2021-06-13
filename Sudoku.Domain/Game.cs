@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.States;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Domain
@@ -14,7 +14,7 @@ namespace Sudoku.Domain
     {
         private readonly IContext context;
 
-        private List<(string type, bool selected)> formats = new()
+        private List<(string format, bool selected)> formatList = new()
         {
             ("4x4", true),
             ("6x6", false),
@@ -29,7 +29,7 @@ namespace Sudoku.Domain
             set
             {
                 context.SetSudoku(value);
-                Board = context.CreateBoard();
+                Board = context.ConstructBoard();
                 Notify(this);
             }
         }
@@ -38,19 +38,14 @@ namespace Sudoku.Domain
         {
             this.context = context;
             context.SwitchState(new DefinitiveState());
-            Board = context.CreateBoard();
-        }
-
-        public IContext GetContext()
-        {
-            return context;
+            Board = context.ConstructBoard();
         }
 
         public void Solve()
         {
             if (sudoku == null) return;
 
-            sudoku.GetOrderedSquares()
+            sudoku.GetSquares()
                 .ForEach(square => square.Value = "0");
 
             context
@@ -76,7 +71,7 @@ namespace Sudoku.Domain
         {
             context.SwitchState(state);
 
-            Board = context.CreateBoard();
+            Board = context.ConstructBoard();
         }
 
         public void SelectSquare(Coordinate coordinate)
@@ -90,10 +85,10 @@ namespace Sudoku.Domain
         {
             if (int.Parse(value) > sudoku?.MaxValue()) return;
 
-            var orderedSquares = sudoku?.GetOrderedSquares();
+            var orderedSquares = sudoku?.GetSquares();
 
             var currentSquare = orderedSquares?
-                .FirstOrDefault(square => square.IsSelected);
+                .FirstOrDefault(square => square.Selected);
 
             if (currentSquare == null) return;
 
@@ -102,14 +97,14 @@ namespace Sudoku.Domain
             Notify(this);
         }
 
-        public List<(string type, bool selected)> GetFormats()
+        public List<(string format, bool selected)> GetFormats()
         {
-            return formats;
+            return formatList;
         }
 
-        public void SelectFormat(List<(string type, bool selected)> selection)
+        public void SelectFormat(List<(string format, bool selected)> selection)
         {
-            formats = selection;
+            formatList = selection;
         }
     }
 }

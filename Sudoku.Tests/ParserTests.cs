@@ -12,7 +12,9 @@ namespace Sudoku.Tests
     {
         private SudokuParser sudokuParser;
         private static string path = "../../../Formats/";
-        private static List<string> types = CorrectBaseSudokuTypesTestData.Formats.Select(td => td.Type).ToList();
+        private static List<string> formats = SudokuFormatData.Formats
+            .Select(td => td.Format)
+            .ToList();
 
         [OneTimeSetUp]
         public void Setup()
@@ -20,10 +22,11 @@ namespace Sudoku.Tests
             sudokuParser = new SudokuParser();
         }
 
-        [Test, TestCaseSource(nameof(types))]
-        public void FileReader_WithType_ReturnsFileContent(string type)
+        [Test, TestCaseSource(nameof(formats))]
+        public void Parser_Can_Parse(string type)
         {
             var input = sudokuParser.Parse(type, path);
+
             Assert.NotNull(input);
         }
     }

@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 
 namespace Sudoku.Domain.Models.Sudokus
 {
     public abstract class BaseSudoku
     {
-        public List<IComponent> Sudokus { get; }
+        public List<IComponent> Components { get; }
 
         protected BaseSudoku(List<IComponent> sudokus)
         {
-            Sudokus = sudokus;
+            Components = sudokus;
         }
 
-        public virtual List<SquareLeaf> GetOrderedSquares()
+        public virtual List<SquareLeaf> GetSquares()
         {
-            return Sudokus.SelectMany(box => box.Find(square => !square.IsComposite()))
+            return Components.SelectMany(box => box.Find(square => !square.Composite()))
                 .Cast<SquareLeaf>()
                 .OrderBy(square => square.Coordinate.Y)
                 .ThenBy(square => square.Coordinate.X)
@@ -26,7 +26,7 @@ namespace Sudoku.Domain.Models.Sudokus
 
         public int MaxValue()
         {
-            return Sudokus.First()
+            return Components.First()
                 .GetChildren()
                 .Max(box => box.GetChildren().Count());
         }
@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Models.Sudokus
 
         private IEnumerable<IComponent> GetSudokus()
         {
-            return Sudokus
+            return Components
                 .Where(sudoku => sudoku.GetChildren().Count() > 2)
                 .ToList();
         }
@@ -47,8 +47,11 @@ namespace Sudoku.Domain.Models.Sudokus
 
         public virtual bool ValidateSudoku(State state, bool setValid = false)
         {
-            GetOrderedSquares().ForEach(square => square.IsValid = true);
-            return GetSudokus().All(sudoku => sudoku.Valid(state, setValid));
+            GetSquares()
+                .ForEach(square => square.IsValid = true);
+
+            return GetSudokus()
+                .All(sudoku => sudoku.Valid(state, setValid));
         }
     }
 }

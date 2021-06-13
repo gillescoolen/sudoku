@@ -1,14 +1,14 @@
 #nullable enable
 
 using Sudoku.Domain.Models;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 using Sudoku.Domain.Visitors;
 
 namespace Sudoku.Domain.States
 {
     public class HintState : State
     {
-        public override void EnterValue(string value, SquareLeaf square)
+        public override void SetValue(string value, SquareLeaf square)
         {
             square.HintValue = value;
         }
@@ -18,7 +18,7 @@ namespace Sudoku.Domain.States
             return Context?.Sudoku()?.Accept(new NormalSudokuVisitor());
         }
 
-        public override bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare)
+        public override bool Check(SquareLeaf leftSquare, SquareLeaf rightSquare)
         {
             return HasSquareValue(leftSquare) && HasSquareValue(rightSquare) &&
                 leftSquare.HintValue == rightSquare.HintValue ||

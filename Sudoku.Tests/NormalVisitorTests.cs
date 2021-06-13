@@ -15,18 +15,18 @@ namespace Sudoku.Tests
         [SetUp]
         public void Setup()
         {
-            sudoku = CorrectBaseSudokuData.BaseSudoku;
+            sudoku = SudokuData.BaseSudoku;
         }
 
         [Test]
-        public void GetField_WithNormalSudoku_ExpectParts()
+        public void Sudoku_Has_Correct_Squares()
         {
             var visitor = new NormalSudokuVisitor();
 
             var field = visitor.Visit(sudoku);
-            var squares = field.parts.Where(p => p is Square).ToList();
+            var squares = field.boxes.Where(p => p is Square).ToList();
 
-            Assert.AreEqual(31, field.parts.Count);
+            Assert.AreEqual(31, field.boxes.Count);
             Assert.AreEqual(16, squares.Count);
         }
     }

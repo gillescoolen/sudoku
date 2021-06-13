@@ -1,7 +1,7 @@
 using System.Linq;
 using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 
 namespace Sudoku.Domain.Strategies
 {
@@ -9,22 +9,31 @@ namespace Sudoku.Domain.Strategies
     {
         public bool Solve(BaseSudoku sudoku, State state)
         {
-            var emptySquare = sudoku.GetOrderedSquares().FirstOrDefault(c => c.Value.Equals("0") && !c.IsLocked);
-            var maxValue = sudoku.MaxValue();
+            var square = sudoku
+                .GetSquares()
+                .FirstOrDefault(square =>
+                   square.Value.Equals("0") && !square.Locked
+                );
 
-            if (emptySquare == null) return true;
-
-            for (var i = 1; i <= maxValue; ++i)
+            if (square == null)
             {
-                emptySquare.Value = $"{i}";
+                return true;
+            }
+
+            var max = sudoku.MaxValue();
+
+            for (var i = 1; i <= max; ++i)
+            {
+                square.Value = $"{i}";
 
                 if (sudoku.ValidateSudoku(state) && Solve(sudoku, state))
                 {
                     return true;
                 }
 
-                emptySquare.Value = "0";
+                square.Value = "0";
             }
+
             return false;
         }
     }

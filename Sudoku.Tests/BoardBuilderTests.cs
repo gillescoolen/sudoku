@@ -13,8 +13,8 @@ namespace Sudoku.Tests
 
         private static object[] squares =
         {
-            new object[] { new SquareLeaf(false, "0", new Coordinate(0, 0)) },
             new object[] { new SquareLeaf(true, "1", new Coordinate(0,0)) },
+            new object[] { new SquareLeaf(false, "0", new Coordinate(0, 0)) },
             new object[] { new SquareLeaf(true, new Coordinate(0,0)) }
         };
 
@@ -24,86 +24,74 @@ namespace Sudoku.Tests
             boardBuilder = new BoardBuilder();
         }
 
-        [TestCase(false)]
         [TestCase(true)]
-        public void BuildDivider_WithBool_ReturnsListWithDivider(bool horizontal)
+        [TestCase(false)]
+        public void Build_Vertical_Divider(bool horizontal)
         {
             boardBuilder.BuildDivider(horizontal);
 
-            var product = boardBuilder.GetResult();
+            var result = boardBuilder.GetResult();
 
-            Assert.That(product.parts.Count(p => p.GetType() == typeof(Divider)), Is.EqualTo(1));
+            Assert.That(result.boxes.Count(p => p.GetType() == typeof(Divider)), Is.EqualTo(1));
         }
 
-        [TestCase(false)]
         [TestCase(true)]
-        public void BuildDivider_WithBool_ReturnsDividerCorrectOrientation(bool horizontal)
+        [TestCase(false)]
+        public void Build_Horizontal_Divider(bool horizontal)
         {
             boardBuilder.BuildDivider(horizontal);
 
             var product = boardBuilder.GetResult();
-            var divider = product.parts.Cast<Divider>().First();
+            var divider = product.boxes.Cast<Divider>().First();
 
             Assert.AreEqual(divider.Horizontal, horizontal);
         }
 
-        [TestCase(null)]
+
         [TestCase(1)]
         [TestCase(2)]
-        public void BuildSpacer_WithSize_ReturnsListWithSpacer(int size)
+        public void Build_Spacer(int size)
         {
             boardBuilder.BuildSpacer(size);
 
-            var product = boardBuilder.GetResult();
-
-            Assert.That(product.parts.Count(p => p.GetType() == typeof(Spacer)), Is.EqualTo(1));
-        }
-
-        [TestCase(null)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void BuildSpacer_WithSize_ReturnsSpacerCorrectWidth(int size)
-        {
-            boardBuilder.BuildSpacer(size);
-
-            var product = boardBuilder.GetResult();
-            var spacer = product.parts.Cast<Spacer>().First();
+            var result = boardBuilder.GetResult();
+            var spacer = result.boxes.Cast<Spacer>().First();
 
             Assert.AreEqual(spacer.Size, size);
         }
 
         [TestCaseSource(nameof(squares))]
-        public void BuildSquare_WithSquare_ReturnsListWithSquare(SquareLeaf leaf)
-        {
-            boardBuilder.BuildSquare(leaf);
-
-            var product = boardBuilder.GetResult();
-
-            Assert.That(product.parts.Count(p => p.GetType() == typeof(Square)), Is.EqualTo(1));
-        }
-
-        [TestCaseSource(nameof(squares))]
-        public void Builder_BuildSquare_ReturnsSquareCorrectData(SquareLeaf square)
+        public void Build_Empty_Square(SquareLeaf square)
         {
             boardBuilder.BuildSquare(square);
 
-            var product = boardBuilder.GetResult();
-            var buildSquare = product.parts.Cast<Square>().First();
+            var result = boardBuilder.GetResult();
 
-            Assert.AreEqual(square.Value, buildSquare.SquareLeaf.Value);
-            Assert.AreEqual(square.IsLocked, buildSquare.SquareLeaf.IsLocked);
-            Assert.AreEqual(square.Coordinate.X, buildSquare.SquareLeaf.Coordinate.X);
-            Assert.AreEqual(square.Coordinate.Y, buildSquare.SquareLeaf.Coordinate.Y);
+            Assert.That(result.boxes.Count(p => p.GetType() == typeof(Square)), Is.EqualTo(1));
+        }
+
+        [TestCaseSource(nameof(squares))]
+        public void Build_Square(SquareLeaf square)
+        {
+            boardBuilder.BuildSquare(square);
+
+            var result = boardBuilder.GetResult();
+            var builtSquare = result.boxes.Cast<Square>().First();
+
+            Assert.AreEqual(square.Value, builtSquare.SquareLeaf.Value);
+            Assert.AreEqual(square.Locked, builtSquare.SquareLeaf.Locked);
+            Assert.AreEqual(square.Coordinate.X, builtSquare.SquareLeaf.Coordinate.X);
+            Assert.AreEqual(square.Coordinate.Y, builtSquare.SquareLeaf.Coordinate.Y);
         }
 
         [Test]
-        public void Builder_BuildRow_ReturnsListWithRow()
+        public void Build_Row()
         {
             boardBuilder.BuildRow();
 
-            var product = boardBuilder.GetResult();
+            var result = boardBuilder.GetResult();
 
-            Assert.That(product.parts.Count(p => p.GetType() == typeof(Row)), Is.EqualTo(1));
+            Assert.That(result.boxes.Count(p => p.GetType() == typeof(Row)), Is.EqualTo(1));
         }
     }
 }

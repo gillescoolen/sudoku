@@ -16,28 +16,19 @@ namespace Sudoku.Terminal.Controllers
             return new MainView(this);
         }
 
-        public void ChooseType()
-        {
-            App.game.sudoku = App.parser.Parse(GetFormats().First(s => s.selected).type);
-        }
-
-        public override void Update()
-        {
-            if (App.game.sudoku != null) App.OpenController<DefinitiveController>();
-        }
-
-        public List<(string type, bool selected)> GetFormats()
-        {
-            return App.game.GetFormats();
-        }
 
         public void MoveSelection(int selection)
         {
             var selectedFormat = GetFormats().FindIndex(s => s.selected);
             var currentFormat = GetFormats()[selectedFormat];
 
-            var nextIndex = selectedFormat == 0 && selection == -1 ? GetFormats().Count - 1 : selectedFormat + selection;
-            var nextFormat = GetFormats().ElementAt(nextIndex >= GetFormats().Count ? 0 : nextIndex);
+            var nextIndex =
+                selectedFormat == 0 && selection == -1
+                ? GetFormats().Count - 1
+                : selectedFormat + selection;
+
+            var nextFormat = GetFormats()
+                .ElementAt(nextIndex >= GetFormats().Count ? 0 : nextIndex);
 
             var selectionList = GetFormats().Select(format =>
             {
@@ -57,5 +48,21 @@ namespace Sudoku.Terminal.Controllers
 
             App.OnNext(App.game);
         }
+
+        public void ChooseFormat()
+        {
+            App.game.sudoku = App.parser.Parse(GetFormats().First(s => s.selected).type);
+        }
+
+        public override void Update()
+        {
+            if (App.game.sudoku != null) App.OpenController<DefinitiveController>();
+        }
+
+        public List<(string type, bool selected)> GetFormats()
+        {
+            return App.game.GetFormats();
+        }
+
     }
 }

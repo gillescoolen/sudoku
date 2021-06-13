@@ -4,7 +4,7 @@ using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 
-namespace Sudoku.Domain.Utilities
+namespace Sudoku.Domain.Utils
 {
     public class Context : IContext
     {
@@ -20,8 +20,12 @@ namespace Sudoku.Domain.Utilities
         public void SetSudoku(BaseSudoku? sudoku)
         {
             this.sudoku = sudoku;
-            if (this.sudoku == null) return;
-            SetStrategy(sudoku!.GetSolverStrategy());
+
+            if (this.sudoku != null)
+            {
+                SetStrategy(this.sudoku.GetSolverStrategy());
+            }
+
         }
 
         public BaseSudoku? Sudoku()
@@ -29,25 +33,26 @@ namespace Sudoku.Domain.Utilities
             return sudoku;
         }
 
-        public IStrategy? GetStrategy()
-        {
-            return strategy;
-        }
 
         public void SwitchState(State newState)
         {
             state = newState;
+
             state.SetContext(this);
         }
 
         public void EnterValue(string value, SquareLeaf square)
         {
-            state?.EnterValue(value, square);
+            state?.SetValue(value, square);
         }
 
-        public Board CreateBoard()
+        public Board ConstructBoard()
         {
             return state?.Construct() ?? new Board();
+        }
+        public IStrategy? GetStrategy()
+        {
+            return strategy;
         }
 
         public void SetStrategy(IStrategy newStrategy)

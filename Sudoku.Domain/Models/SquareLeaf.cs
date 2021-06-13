@@ -2,21 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 
 namespace Sudoku.Domain.Models
 {
     public class SquareLeaf : IComponent
     {
-        private bool isLocked;
-        public bool IsLocked
+        private bool locked;
+        public bool Locked
         {
-            get => isLocked;
-            private init => isLocked = value;
+            get => locked;
+            private init => locked = value;
         }
 
         public bool IsValid { private get; set; } = true;
-        public bool IsSelected { get; private set; }
+        public bool Selected { get; private set; }
         private string value;
         private string hintValue = "0";
         public Coordinate Coordinate { get; }
@@ -26,7 +26,7 @@ namespace Sudoku.Domain.Models
             get => value;
             set
             {
-                if (IsLocked) return;
+                if (Locked) return;
                 this.value = value;
                 IsValid = true;
                 hintValue = "0";
@@ -38,29 +38,34 @@ namespace Sudoku.Domain.Models
             get => hintValue;
             set
             {
-                if (IsLocked || !Value.Equals("0")) return;
+                if (Locked || !Value.Equals("0")) return;
                 hintValue = value;
                 IsValid = true;
             }
         }
 
-        public SquareLeaf(bool isLocked, string value, Coordinate coordinate)
+        public SquareLeaf(bool locked, string value, Coordinate coordinate)
         {
-            IsLocked = isLocked;
+            Locked = locked;
             this.value = value;
             Coordinate = coordinate;
         }
 
         public SquareLeaf(bool isLocked, Coordinate coordinate)
         {
-            IsLocked = isLocked;
+            Locked = isLocked;
             value = "";
             Coordinate = coordinate;
         }
 
-        public void ToggleSelect()
+        public void Select()
         {
-            IsSelected = !IsSelected;
+            Selected = true;
+        }
+
+        public void UnSelect()
+        {
+            Selected = false;
         }
 
         public bool Valid(State state, bool setValid)
@@ -73,7 +78,7 @@ namespace Sudoku.Domain.Models
             return IsValid;
         }
 
-        public bool IsComposite()
+        public bool Composite()
         {
             return false;
         }
@@ -83,9 +88,9 @@ namespace Sudoku.Domain.Models
             return GetChildren();
         }
 
-        public bool IsSpacingSquare()
+        public bool IsEmpty()
         {
-            return IsLocked && value.Length == 0;
+            return Locked && value.Length == 0;
         }
 
         public IEnumerable<IComponent> GetChildren()

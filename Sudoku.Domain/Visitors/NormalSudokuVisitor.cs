@@ -3,7 +3,7 @@ using Sudoku.Domain.Builders;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Sudokus;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using System;
 
 namespace Sudoku.Domain.Visitors
 {
@@ -11,62 +11,88 @@ namespace Sudoku.Domain.Visitors
     {
         public Board Visit(BaseSudoku sudoku)
         {
-            var builder = new BoardBuilder();
-            var squares = sudoku.GetOrderedSquares();
-            var quadrants = sudoku.Sudokus.SelectMany(c => c.Find(q => q.IsComposite())).ToList();
+            var squares = sudoku.GetSquares();
+            var boardBuilder = new BoardBuilder();
+
+            var boxes = sudoku.Components
+                .SelectMany(box => box.Find(subBox => subBox.Composite()))
+                .ToList();
+
             var totalWidth = squares.Max(squareLeaf => squareLeaf.Coordinate.X) + 1;
-            var firstQuadrant = sudoku.Sudokus.Find(c => c.IsComposite())!.GetChildren().Count();
-            var nextHorizontal = firstQuadrant.FloorSqrt();
-            var nextVertical = firstQuadrant.CeilingSqrt();
+
+            var firstBox = sudoku.Components
+                .Find(box => box.Composite())
+                .GetChildren()
+                .Count();
+
+            var nextHorizontal = Convert.ToInt32(Math.Floor(Math.Sqrt(firstBox)));
+            var nextVertical = Convert.ToInt32(Math.Ceiling(Math.Sqrt(firstBox)));
 
             for (var i = 0; i < squares.Count; ++i)
             {
-                var leaf = squares[i];
-                var nextLeaf = i + 1 > squares.Count - 1 ? null : squares[i + 1];
-                var downLeaf = squares.FirstOrDefault(squareLeaf => squareLeaf.Coordinate.Y == leaf.Coordinate.Y + 1 && squareLeaf.Coordinate.X == leaf.Coordinate.X);
-                var quadrant = quadrants.First(q => q.GetChildren().Contains(leaf));
+                var square = squares[i];
+                var nextSquare = i + 1 > squares.Count - 1 ? null : squares[i + 1];
+                var downLeaf = squares.FirstOrDefault(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1 && squareLeaf.Coordinate.X == square.Coordinate.X);
+                var box = boxes.First(q => q.GetChildren().Contains(square));
 
-                builder.BuildSquare(leaf);
+                boardBuilder.BuildSquare(square);
 
-                if (nextLeaf?.Coordinate.Y == leaf.Coordinate.Y && !quadrant.GetChildren().Contains(nextLeaf!))
+                if (
+                    nextSquare?.Coordinate.Y == square.Coordinate.Y &&
+                    !box.GetChildren().Contains(nextSquare!))
                 {
-                    if (leaf.IsSpacingSquare() && nextLeaf.IsSpacingSquare())
+                    if (square.IsEmpty() && nextSquare.IsEmpty())
                     {
-                        builder.BuildSpacer(1);
+                        boardBuilder.BuildSpacer(1);
                     }
                     else
                     {
-                        builder.BuildDivider(false);
+                        boardBuilder.BuildDivider(false);
                     }
                 }
 
-                if (nextLeaf?.Coordinate.Y == leaf.Coordinate.Y) continue;
+                if (nextSquare?.Coordinate.Y == square.Coordinate.Y)
+                {
+                    continue;
+                }
 
-                builder.BuildRow();
+                boardBuilder.BuildRow();
 
-                if ((leaf.Coordinate.Y + 1) % nextHorizontal != 0 || downLeaf == null) continue;
+                if ((square.Coordinate.Y + 1) % nextHorizontal != 0 || downLeaf == null)
+                {
+                    continue;
+                }
 
-                var currentLeaves = squares.Where(squareLeaf => squareLeaf.Coordinate.Y == leaf.Coordinate.Y).ToList();
-                var nextLeaves = squares.Where(squareLeaf => squareLeaf.Coordinate.Y == leaf.Coordinate.Y + 1).ToList();
+                var currentSquares = squares
+                    .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y)
+                    .ToList();
+
+                var nextSquares =
+                    squares
+                        .Where(squareLeaf => squareLeaf.Coordinate.Y == square.Coordinate.Y + 1)
+                        .ToList();
 
                 for (var wall = 0; wall < totalWidth; ++wall)
                 {
-                    if (!currentLeaves[wall].IsSpacingSquare() && !nextLeaves[wall].IsSpacingSquare())
+                    if (!currentSquares[wall].IsEmpty() && !nextSquares[wall].IsEmpty())
                     {
-                        builder.BuildDivider(true);
+                        boardBuilder.BuildDivider(true);
                     }
                     else
                     {
-                        builder.BuildSpacer(3);
+                        boardBuilder.BuildSpacer(3);
                     }
 
-                    if ((wall + 1) % nextVertical == 0) builder.BuildSpacer(1);
+                    if ((wall + 1) % nextVertical == 0)
+                    {
+                        boardBuilder.BuildSpacer(1);
+                    }
                 }
 
-                builder.BuildRow();
+                boardBuilder.BuildRow();
             }
 
-            return builder.GetResult();
+            return boardBuilder.GetResult();
         }
     }
 }

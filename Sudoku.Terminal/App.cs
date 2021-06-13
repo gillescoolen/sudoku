@@ -10,12 +10,12 @@ namespace Sudoku.Terminal
 {
     public class App : IObserver<IGame>
     {
-        public IGame game;
         public readonly ISudokuParser parser;
+        public IGame game;
         private IDisposable unSubscriber;
-        private Controller controller;
         private View view;
-        private bool isRunning = true;
+        private Controller controller;
+        private bool running = true;
 
         public App(IGame game, ISudokuParser parser)
         {
@@ -25,10 +25,11 @@ namespace Sudoku.Terminal
 
         public async Task Run(string[] args)
         {
-            Console.Title = "Sudoku";
+            Console.Title = "DP1 - Sudoku";
             Console.OutputEncoding = Encoding.UTF8;
 
             OpenController<MainController>();
+
             unSubscriber = game.Subscribe(this);
 
             Input();
@@ -36,45 +37,24 @@ namespace Sudoku.Terminal
             await Task.CompletedTask;
         }
 
-        public void Exit()
-        {
-            OnCompleted();
-            isRunning = false;
-            Environment.Exit(1);
-        }
-
         public void OpenController<T>() where T : Controller<T>
         {
-            var newController = (T)Activator.CreateInstance(typeof(T), this);
+            var controller = (T)Activator.CreateInstance(typeof(T), this);
 
-            controller = newController;
-            view = newController?.CreateView();
+            this.controller = controller;
+            view = controller?.CreateView();
             OnNext(game);
-        }
-
-        public void OnCompleted()
-        {
-            unSubscriber.Dispose();
-        }
-
-        public void OnError(Exception error)
-        {
-            Console.Write($"Exception!: {error.Message}");
         }
 
         private void Input()
         {
-            while (isRunning)
+            while (running)
             {
                 var key = Console.ReadKey(true);
 
                 foreach (var input in view.Inputs)
                 {
-                    if (input.Character != (int)key.Key)
-                    {
-                        continue;
-                    }
-
+                    if (input.Character != (int)key.Key) continue;
                     input.Action();
                 }
             }
@@ -87,12 +67,31 @@ namespace Sudoku.Terminal
             Console.Clear();
 
             controller.Update();
+
             var output = new StringBuilder();
+
             view.Print(output);
 
             Console.CursorVisible = false;
-            Console.SetCursorPosition(0, 0);
+
+            Console.SetCursorPosition(0, 0)
+            ;
             Console.Write(output.ToString());
+        }
+        public void Exit()
+        {
+            OnCompleted();
+            running = false;
+            Environment.Exit(1);
+        }
+        public void OnCompleted()
+        {
+            unSubscriber.Dispose();
+        }
+
+        public void OnError(Exception error)
+        {
+            throw error;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Sudoku.Terminal.Views
 
         public override void Print(StringBuilder stringBuilder)
         {
-            stringBuilder.AppendLine("You're playing: Sudoku!");
+            stringBuilder.AppendLine("Controls:");
             stringBuilder.AppendLine();
             stringBuilder.AppendLine("M -> Switch between modes.");
             stringBuilder.AppendLine("V -> Validate the sudoku.");
@@ -40,7 +40,7 @@ namespace Sudoku.Terminal.Views
             stringBuilder.AppendLine();
 
             var visitor = Controller.Visitor(stringBuilder);
-            var boxes = Controller.GetBoard().parts;
+            var boxes = Controller.GetBoard().boxes;
 
             foreach (var box in boxes)
             {

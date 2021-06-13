@@ -3,7 +3,8 @@ using System.Linq;
 using Sudoku.Domain.Models;
 using Sudoku.Domain.Models.Interfaces;
 using Sudoku.Domain.Models.Sudokus;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
+using System;
 
 namespace Sudoku.Domain.Factories
 {
@@ -16,7 +17,8 @@ namespace Sudoku.Domain.Factories
 
         private BaseSudoku CreateSudokuOfSize(string sudokuData)
         {
-            var boxes = GenerateBoxes(sudokuData.Length.RoundSqrt(), sudokuData);
+            var size = Convert.ToInt32(Math.Round(Math.Sqrt(sudokuData.Length)));
+            var boxes = GenerateBoxes(size, sudokuData);
             var sudoku = new SudokuComposite(boxes);
 
             return new NormalSudoku(new List<IComponent> { sudoku });
@@ -26,8 +28,8 @@ namespace Sudoku.Domain.Factories
         {
             var boards = GenerateBoards(sudokuData, size).ToList();
 
-            var boxWidth = size.CeilingSqrt();
-            var boxHeight = size.FloorSqrt();
+            var boxWidth = Convert.ToInt32(Math.Ceiling(Math.Sqrt(size)));
+            var boxHeight = Convert.ToInt32(Math.Floor(Math.Sqrt(size)));
 
             var boxes = new List<IComponent>();
 

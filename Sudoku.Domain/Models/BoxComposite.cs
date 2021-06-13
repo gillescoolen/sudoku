@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sudoku.Domain.Models.Interfaces;
-using Sudoku.Domain.Utilities;
+using Sudoku.Domain.Utils;
 
 namespace Sudoku.Domain.Models
 {
@@ -17,22 +17,27 @@ namespace Sudoku.Domain.Models
 
         public bool Valid(State state, bool setValid)
         {
-            var children = Find(c => !c.IsComposite()).Cast<SquareLeaf>();
+            var children = Find(child => !child.Composite()).Cast<SquareLeaf>();
             var squareLeaves = children as SquareLeaf[] ?? children.ToArray();
-            var doubles = squareLeaves.GroupBy(g => g.Value).Where(g => g.Count() > 1 && !g.Key.Equals("0"))
-                .Select(g => g.Key);
+
+            var doubles = squareLeaves
+                .GroupBy(square => square.Value)
+                .Where(square => square.Count() > 1 && !square.Key.Equals("0"))
+                .Select(square => square.Key);
 
             return doubles.Any();
         }
 
-        public bool IsComposite()
+        public bool Composite()
         {
             return true;
         }
 
-        public IEnumerable<IComponent> Find(Func<IComponent, bool> finder)
+        public IEnumerable<IComponent> Find(Func<IComponent, bool> search)
         {
-            return GetChildren().Descendants(i => i.GetChildren()).Where(finder);
+            return GetChildren()
+            .Descendants(descendant => descendant.GetChildren())
+            .Where(search);
         }
 
         public IEnumerable<IComponent> GetChildren()

@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Sudoku.Domain.Utilities
+namespace Sudoku.Domain.Utils
 {
     public class UnSubscriber<T> : IDisposable
     {
-        private readonly List<IObserver<T>> observers;
         private readonly IObserver<T> observer;
+        private readonly List<IObserver<T>> observers;
 
         public UnSubscriber(List<IObserver<T>> observers, IObserver<T> observer)
         {

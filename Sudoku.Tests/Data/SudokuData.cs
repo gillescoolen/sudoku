@@ -6,7 +6,7 @@ using Sudoku.Domain.Models.Sudokus;
 
 namespace Sudoku.Tests.TestData
 {
-    public static class CorrectBaseSudokuData
+    public static class SudokuData
     {
         private static readonly List<IComponent> boxes = new()
         {
@@ -47,7 +47,7 @@ namespace Sudoku.Tests.TestData
                         .ToList()
                         .ForEach(square =>
                     {
-                        squares.Add(new SquareLeaf(square.IsLocked, square.Value, square.Coordinate));
+                        squares.Add(new SquareLeaf(square.Locked, square.Value, square.Coordinate));
                     });
 
                     copies.Add(new BoxComposite(squares));

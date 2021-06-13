@@ -3,7 +3,7 @@ using Sudoku.Domain.Models.Interfaces;
 
 namespace Sudoku.Domain.Models.Parts
 {
-    public class Row : IPart
+    public class Row : ICharacter
     {
         public void Accept(IPrintVisitor visitor)
         {
