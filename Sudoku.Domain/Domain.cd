@@ -3,7 +3,7 @@
   <Class Name="Sudoku.Domain.Builders.BoardBuilder" BaseTypeListCollapsed="true">
     <Position X="25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AgCAAEAgAAAABAAAAAAAAAAAAAAAAAAAIAAACAAAAAA=</HashCode>
+      <HashCode>AgCAAAAgAAAABAAAAAAAAAAAAAAQAAAAIAAACAAAAAA=</HashCode>
       <FileName>Builders\FieldBuilder.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -29,7 +29,7 @@
   <Class Name="Sudoku.Domain.Factories.SudokuNormalFactory">
     <Position X="6.75" Y="6.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAIABAAAAAAAEAAAAAAAgAAAEAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAIABEAAAAAAEAAAAAAAAAAAEEAAAAA=</HashCode>
       <FileName>Factories\SudokuNormalFactory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -37,15 +37,15 @@
   <Class Name="Sudoku.Domain.Factories.SudokuSamuraiFactory" Collapsed="true">
     <Position X="9.25" Y="6.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAACAIAAAgAAAAAEAAAAAAAgAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Factories\SudokuSamuraiFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Models.Parts.Square" BaseTypeListCollapsed="true">
     <Position X="27" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Parts\Square.cs</FileName>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\Parts\Cell.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="SquareLeaf" />
@@ -77,21 +77,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Models.Sudokus.JigsawSudoku" Collapsed="true">
-    <Position X="7" Y="1.75" Width="1.5" />
+    <Position X="9.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Sudokus\JigsawSudoku.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Models.Sudokus.NormalSudoku" Collapsed="true">
-    <Position X="9.25" Y="1.75" Width="1.5" />
+    <Position X="9.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Sudokus\NormalSudoku.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Models.Sudokus.SamuraiSudoku" Collapsed="true">
-    <Position X="11.5" Y="1.75" Width="1.5" />
+    <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Sudokus\SamuraiSudoku.cs</FileName>
@@ -100,7 +100,7 @@
   <Class Name="Sudoku.Domain.Models.SquareLeaf" BaseTypeListCollapsed="true">
     <Position X="23.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAACAEAAAABEAAgAQgAAAAAAACIQCAAAAAgBAAAAAg=</HashCode>
+      <HashCode>AACACAEAAAABFAAAAQgAAAAAAACIQCAAAAAgBAAAAAg=</HashCode>
       <FileName>Models\SquareLeaf.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -109,35 +109,28 @@
     <Position X="27.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Models\Field.cs</FileName>
+      <FileName>Models\Board.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Models.Position">
+  <Class Name="Sudoku.Domain.Models.Coordinate">
     <Position X="23" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAYAA=</HashCode>
-      <FileName>Models\Position.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Sudoku.Domain.Models.SudokuWrapper" Collapsed="true">
-    <Position X="9.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AIgQAAAAAAAIAAIAAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
-      <FileName>Models\Puzzle.cs</FileName>
+      <FileName>Models\Coordinate.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Models.BoxComposite" BaseTypeListCollapsed="true">
     <Position X="25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAACIQAAAAAAABAAAAAA=</HashCode>
-      <FileName>Models\QuadrantComposite.cs</FileName>
+      <FileName>Models\BoxComposite.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Models.SudokuComposite" BaseTypeListCollapsed="true">
     <Position X="21.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAACIQAAAAAAABAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACKQAAAAAAABAAAAAA=</HashCode>
       <FileName>Models\SudokuComposite.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.186" />
@@ -154,16 +147,16 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.States.DefinitiveState" Collapsed="true">
-    <Position X="6.75" Y="4.75" Width="1.5" />
+    <Position X="6.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAEIAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAIAAAAAAgAAAAEAAA=</HashCode>
       <FileName>States\DefinitiveState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.States.HintState" Collapsed="true">
-    <Position X="9" Y="4.75" Width="1.5" />
+    <Position X="9" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAEIAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAIAAAAAAgAAAAEAAA=</HashCode>
       <FileName>States\HintState.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -176,26 +169,25 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Utilities.Context" BaseTypeListCollapsed="true">
-    <Position X="4.5" Y="3.25" Width="1.5" />
+    <Position X="4.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EACAAEAAAAAAgAAAAAiAAAEAAAAAAABEAAAAAAAUAAA=</HashCode>
+      <HashCode>EAAAAEAAAAAAAAAAIAAAAAEAAAABAAAEAwAAAAAUAAA=</HashCode>
       <FileName>Utilities\Context.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="state" />
       <Field Name="strategy" />
-      <Field Name="sudokuWrapper" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Utilities.DimensionHelper">
     <Position X="21.25" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAIAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCAEAAA=</HashCode>
+      <HashCode>ABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAA=</HashCode>
       <FileName>Utilities\DimensionHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Domain.Utilities.DistinctLeafComparer" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Domain.Utilities.SquareComparer" BaseTypeListCollapsed="true">
     <Position X="19.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
@@ -206,12 +198,12 @@
   <Class Name="Sudoku.Domain.Utilities.LinqExtensions">
     <Position X="17.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Utilities\LinqExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Utilities.Provider&lt;T&gt;" Collapsed="true">
-    <Position X="11.75" Y="3.5" Width="1.5" />
+    <Position X="11.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAAACAABAAAAAAAAAAAA=</HashCode>
       <FileName>Utilities\Provider.cs</FileName>
@@ -219,17 +211,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Domain.Utilities.State" Collapsed="true">
-    <Position X="8" Y="3.5" Width="1.5" />
+    <Position X="8" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgIAgAAAAAAAAAAAAAEIAAAAAAAAQAAEAAA=</HashCode>
+      <HashCode>AAAAAAAAAgIAgAAAAAAAAAAAAAAIAAAAAAgAQAAEAAA=</HashCode>
       <FileName>Utilities\State.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Sudoku.Domain.Utilities.StringHelper">
-    <Position X="19.25" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Utilities\StringHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Domain.Utilities.UnSubscriber&lt;T&gt;" BaseTypeListCollapsed="true">
@@ -251,10 +236,17 @@
   <Class Name="Sudoku.Domain.Game">
     <Position X="11.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACSAgAAAAAAEAAEAAAAAAAMAAAAAAAAASAAACAEAAA=</HashCode>
+      <HashCode>AAASAgAAAAAAEAAAIAAAAAAIAAAAAAAAAyAAACAEAAA=</HashCode>
       <FileName>Game.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Sudoku.Domain.Models.Sudokus.BaseSudoku">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAQAAAAAAAKAAIAAAAAAAAAAAAAAAIAAAAgAAAAAAA=</HashCode>
+      <FileName>Models\Sudokus\BaseSudoku.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Interface Name="Sudoku.Domain.Factories.IAbstractSudokuFactory" Collapsed="true">
     <Position X="13.75" Y="9" Width="1.5" />
@@ -266,7 +258,7 @@
   <Interface Name="Sudoku.Domain.Models.Interfaces.IBuilder" Collapsed="true">
     <Position X="15.5" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAEAgAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AACAAAAgAAAABAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Interfaces\IBuilder.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -280,7 +272,7 @@
   <Interface Name="Sudoku.Domain.Models.Interfaces.IContext" Collapsed="true">
     <Position X="19" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACAAEAAAAAAgAAAAAgAAAEAAAAAAABAAAAAAAAUAAA=</HashCode>
+      <HashCode>AAAAAEAAAAAAAAAAIAAAAAEAAAABAAAAAgAAAAAUAAA=</HashCode>
       <FileName>Models\Interfaces\IContext.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -294,7 +286,7 @@
   <Interface Name="Sudoku.Domain.Models.Interfaces.IGame" Collapsed="true">
     <Position X="17.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACQAgAAAAAAAAAEAAAAAAAMAAAAAAAAASAAACAEAAA=</HashCode>
+      <HashCode>AAAQAgAAAAAAAAAAIAAAAAAIAAAAAAAAAyAAACAEAAA=</HashCode>
       <FileName>Models\Interfaces\IGame.cs</FileName>
     </TypeIdentifier>
   </Interface>
