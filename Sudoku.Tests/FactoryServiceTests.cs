@@ -29,17 +29,17 @@ namespace Sudoku.Tests
         }
 
         [Test, TestCaseSource(typeof(SudokuFormatData), nameof(SudokuFormatData.FormatsWithLengths))]
-        public void Factory_Has_Squares(string type, string data, int validSquareCount)
+        public void Factory_Has_Squares(string type, string data, int count)
         {
             var sudoku = factoryService.Create(type, data);
 
             var squareCount = sudoku.Components
-                .SelectMany(box => box.Find(leaf => !leaf.Composite()))
+                .SelectMany(box => box.Find(square => !square.Composite()))
                 .Cast<SquareLeaf>()
                 .Distinct(new SquareComparer())
                 .ToList().Count;
 
-            Assert.AreEqual(validSquareCount, squareCount);
+            Assert.AreEqual(count, squareCount);
         }
     }
 }
