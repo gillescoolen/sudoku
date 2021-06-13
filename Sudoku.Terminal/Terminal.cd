@@ -24,7 +24,7 @@
   <Class Name="Sudoku.Terminal.Controllers.GameController&lt;T&gt;">
     <Position X="17.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQAAEAgIAAAIAAAAAAAAAYAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <HashCode>AAAQAAEAgIAAAIAAAAAAAAAIAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Controllers\GameController.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -49,40 +49,32 @@
       <FileName>Models\Input.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Sudoku.Terminal.Views.Visitors.DrawDefinitiveVisitor" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Sudoku.Terminal.Views.Visitors.PrintDefinitiveVisitor" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="10.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\Visitors\DrawDefinitiveVisitor.cs</FileName>
+      <FileName>Views\Visitors\PrintDefinitiveVisitor.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="Sudoku.Terminal.Views.Visitors.DrawHintVisitor" BaseTypeListCollapsed="true">
-    <Position X="12.5" Y="1.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Views\Visitors\DrawHintVisitor.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Terminal.Views.GameView&lt;T&gt;">
     <Position X="4" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Views\GameView.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Terminal.Views.MainView">
     <Position X="6.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Views\MainView.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sudoku.Terminal.Views.View">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAEAAAABAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAEAAA=</HashCode>
       <FileName>Views\View.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -99,7 +91,7 @@
       <HashCode>AEAAAAAAAACAAANAAAAAAAAAEABAABAIIQAAAAAAIAI=</HashCode>
       <FileName>App.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Sudoku.Terminal.Program" Collapsed="true">
     <Position X="10.75" Y="2.25" Width="1.5" />
@@ -107,6 +99,14 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="Sudoku.Terminal.Views.Visitors.PrintHintVisitor" Collapsed="true">
+    <Position X="12.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Visitors\PrintHintVisitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
