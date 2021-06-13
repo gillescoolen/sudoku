@@ -11,7 +11,7 @@ namespace Sudoku.Domain.Models.Parts
             Size = size;
         }
 
-        public void Accept(IDrawVisitor visitor)
+        public void Accept(IPrintVisitor visitor)
         {
             visitor.Visit(this);
         }

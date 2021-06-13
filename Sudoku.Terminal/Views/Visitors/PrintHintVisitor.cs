@@ -6,14 +6,15 @@ using Sudoku.Domain.Models.Parts;
 
 namespace Sudoku.Terminal.Views.Visitors
 {
-    public class DrawDefinitiveVisitor : IDrawVisitor
+    public class PrintHintVisitor : IPrintVisitor
     {
         private StringBuilder stringBuilder;
 
-        public DrawDefinitiveVisitor(StringBuilder stringBuilder)
+        public PrintHintVisitor(StringBuilder stringBuilder)
         {
             this.stringBuilder = stringBuilder;
         }
+
         public void Visit(Divider divider)
         {
             stringBuilder.Append(divider.Horizontal ? " - " : "|");
@@ -22,20 +23,20 @@ namespace Sudoku.Terminal.Views.Visitors
         public void Visit(Square square)
         {
             var color = $"{Color.FromName("white").ToArgb():x6}";
-            var content = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? "   " : $" {square.SquareLeaf.Value} ";
+            var value = square.SquareLeaf.IsLocked || !square.SquareLeaf.Value.Equals("0") ? square.SquareLeaf.Value : square.SquareLeaf.HintValue;
+            var content = value.Equals("0") || value.Equals("") ? "   " : $" {value} ";
 
-            if (square.SquareLeaf.IsLocked && !square.SquareLeaf.IsSelected)
+            if (square.SquareLeaf.IsLocked && !square.SquareLeaf.IsSelected || !square.SquareLeaf.Value.Equals("0") && !square.SquareLeaf.IsSelected)
             {
                 color = $"{Color.FromName("yellow").ToArgb():x6}";
             }
-
-            if (square.SquareLeaf.IsSelected)
+            else if (square.SquareLeaf.IsSelected)
             {
                 color = $"{Color.FromName("cyan").ToArgb():x6}";
-                content = square.SquareLeaf.Value.Equals("0") || square.SquareLeaf.Value.Equals("") ? " x " : $" {square.SquareLeaf.Value} ";
+                content = value.Equals("0") || value.Equals("") ? " x " : $" {value} ";
             }
 
-            color = square.SquareLeaf.Valid() || square.SquareLeaf.IsLocked || square.SquareLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
+            color = square.SquareLeaf.Valid() || square.SquareLeaf.HintValue.Equals("0") || square.SquareLeaf.IsLocked || square.SquareLeaf.IsSelected ? color : $"{Color.FromName("red").ToArgb():x6}";
 
             stringBuilder.Append(content.Pastel(color));
         }
@@ -47,7 +48,7 @@ namespace Sudoku.Terminal.Views.Visitors
 
         public void Visit(Spacer spacer)
         {
-            stringBuilder.Append(new string(' ', spacer.Size));
+            stringBuilder.Append(new string(',', spacer.Size));
         }
     }
 }

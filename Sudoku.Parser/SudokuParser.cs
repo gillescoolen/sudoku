@@ -14,14 +14,12 @@ namespace Sudoku.Parser
             sudokuFactory.AddSudokuFactory("4x4", typeof(SudokuNormalFactory));
             sudokuFactory.AddSudokuFactory("6x6", typeof(SudokuNormalFactory));
             sudokuFactory.AddSudokuFactory("9x9", typeof(SudokuNormalFactory));
-            sudokuFactory.AddSudokuFactory("samurai", typeof(SudokuSamuraiFactory));
-            sudokuFactory.AddSudokuFactory("jigsaw", typeof(SudokuJigsawFactory));
         }
 
-        public BaseSudoku Parse(string format)
+        public BaseSudoku Parse(string format, string path = "./Sudoku.Terminal/Formats/")
         {
             var abstractSudokuFactory = this.sudokuFactory.CreateSudokuFactory(format);
-            return abstractSudokuFactory?.CreateSudoku(File.ReadAllText(Path.Combine($"./Sudoku.Terminal/Formats/puzzle.{format}")));
+            return abstractSudokuFactory?.CreateSudoku(File.ReadAllText(Path.Combine($"{path}/puzzle.{format}")));
         }
     }
 }

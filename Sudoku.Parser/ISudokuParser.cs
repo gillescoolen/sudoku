@@ -4,6 +4,6 @@ namespace Sudoku.Parser
 {
     public interface ISudokuParser
     {
-        public BaseSudoku Parse(string format);
+        public BaseSudoku Parse(string format, string path = "./Sudoku.Terminal/Formats/");
     }
 }

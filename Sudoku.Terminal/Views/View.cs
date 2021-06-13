@@ -16,7 +16,7 @@ namespace Sudoku.Terminal.Views
             this.inputs = inputs;
         }
 
-        public abstract void Draw(StringBuilder stringBuilder);
+        public abstract void Print(StringBuilder stringBuilder);
     }
 
     public abstract class View<T> : View where T : Controller<T>

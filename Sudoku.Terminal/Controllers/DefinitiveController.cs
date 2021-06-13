@@ -25,9 +25,9 @@ namespace Sudoku.Terminal.Controllers
 
         }
 
-        public override IDrawVisitor Visitor(StringBuilder builder)
+        public override IPrintVisitor Visitor(StringBuilder builder)
         {
-            return new DrawDefinitiveVisitor(builder);
+            return new PrintDefinitiveVisitor(builder);
         }
 
         public override void Switch()

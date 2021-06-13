@@ -18,7 +18,7 @@ namespace Sudoku.Domain.Models
         public bool IsValid { private get; set; } = true;
         public bool IsSelected { get; private set; }
         private string value;
-        private string helpValue = "0";
+        private string hintValue = "0";
         public Coordinate Coordinate { get; }
 
         public string Value
@@ -29,17 +29,17 @@ namespace Sudoku.Domain.Models
                 if (IsLocked) return;
                 this.value = value;
                 IsValid = true;
-                helpValue = "0";
+                hintValue = "0";
             }
         }
 
-        public string HelpValue
+        public string HintValue
         {
-            get => helpValue;
+            get => hintValue;
             set
             {
                 if (IsLocked || !Value.Equals("0")) return;
-                helpValue = value;
+                hintValue = value;
                 IsValid = true;
             }
         }

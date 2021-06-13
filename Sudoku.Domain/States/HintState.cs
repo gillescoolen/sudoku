@@ -10,7 +10,7 @@ namespace Sudoku.Domain.States
     {
         public override void EnterValue(string value, SquareLeaf square)
         {
-            square.HelpValue = value;
+            square.HintValue = value;
         }
 
         public override Board? Construct()
@@ -21,14 +21,14 @@ namespace Sudoku.Domain.States
         public override bool CheckEquality(SquareLeaf leftSquare, SquareLeaf rightSquare)
         {
             return HasSquareValue(leftSquare) && HasSquareValue(rightSquare) &&
-                leftSquare.HelpValue == rightSquare.HelpValue ||
-                !leftSquare.Value.Equals("0") && leftSquare.Value == rightSquare.HelpValue ||
-                !rightSquare.Value.Equals("0") && rightSquare.Value == leftSquare.HelpValue;
+                leftSquare.HintValue == rightSquare.HintValue ||
+                !leftSquare.Value.Equals("0") && leftSquare.Value == rightSquare.HintValue ||
+                !rightSquare.Value.Equals("0") && rightSquare.Value == leftSquare.HintValue;
         }
 
         public override bool HasSquareValue(SquareLeaf square)
         {
-            return !square.HelpValue.Equals("0");
+            return !square.HintValue.Equals("0");
         }
     }
 }

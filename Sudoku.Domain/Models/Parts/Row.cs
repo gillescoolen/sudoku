@@ -5,7 +5,7 @@ namespace Sudoku.Domain.Models.Parts
 {
     public class Row : IPart
     {
-        public void Accept(IDrawVisitor visitor)
+        public void Accept(IPrintVisitor visitor)
         {
             visitor.Visit(this);
         }

@@ -5,7 +5,7 @@ using Sudoku.Domain.Utilities;
 
 namespace Sudoku.Domain.Strategies
 {
-    public class BackTrackingStrategy : IStrategy
+    public class BackTrackStrategy : IStrategy
     {
         public bool Solve(BaseSudoku sudoku, State state)
         {

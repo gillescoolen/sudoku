@@ -16,7 +16,7 @@ namespace Sudoku.Terminal.Views
         {
         }
 
-        public override void Draw(StringBuilder stringBuilder)
+        public override void Print(StringBuilder stringBuilder)
         {
             stringBuilder.Append("Select a format:");
             stringBuilder.AppendLine();

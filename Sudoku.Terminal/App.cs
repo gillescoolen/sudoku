@@ -88,7 +88,7 @@ namespace Sudoku.Terminal
 
             controller.Update();
             var output = new StringBuilder();
-            view.Draw(output);
+            view.Print(output);
 
             Console.CursorVisible = false;
             Console.SetCursorPosition(0, 0);

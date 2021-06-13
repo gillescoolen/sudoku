@@ -18,9 +18,7 @@ namespace Sudoku.Domain
         {
             ("4x4", true),
             ("6x6", false),
-            ("9x9", false),
-            ("samurai", false),
-            ("jigsaw", false)
+            ("9x9", false)
         };
 
         public Board Board { get; private set; }
@@ -52,9 +50,12 @@ namespace Sudoku.Domain
         {
             if (sudoku == null) return;
 
-            sudoku.GetOrderedSquares().ForEach(c => c.Value = "0");
+            sudoku.GetOrderedSquares()
+                .ForEach(square => square.Value = "0");
 
-            context.GetStrategy()?.Solve(sudoku, context.GetState()!);
+            context
+                .GetStrategy()?
+                .Solve(sudoku, context.GetState()!);
 
             Notify(this);
         }
@@ -65,7 +66,10 @@ namespace Sudoku.Domain
 
             sudoku.ValidateSudoku(context.GetState()!, true);
 
-            if (update) Notify(this);
+            if (update)
+            {
+                Notify(this);
+            }
         }
 
         public void SwitchState(State state)
@@ -88,7 +92,8 @@ namespace Sudoku.Domain
 
             var orderedSquares = sudoku?.GetOrderedSquares();
 
-            var currentSquare = orderedSquares?.FirstOrDefault(square => square.IsSelected);
+            var currentSquare = orderedSquares?
+                .FirstOrDefault(square => square.IsSelected);
 
             if (currentSquare == null) return;
 

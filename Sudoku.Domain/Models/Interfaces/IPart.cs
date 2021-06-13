@@ -4,6 +4,6 @@ namespace Sudoku.Domain.Models.Interfaces
 {
     public interface IPart
     {
-        public void Accept(IDrawVisitor visitor);
+        public void Accept(IPrintVisitor visitor);
     }
 }

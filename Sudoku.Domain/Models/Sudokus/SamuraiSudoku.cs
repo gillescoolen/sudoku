@@ -12,7 +12,7 @@ namespace Sudoku.Domain.Models.Sudokus
 
         public override IStrategy GetSolverStrategy()
         {
-            return new BackTrackingStrategy();
+            return new BackTrackStrategy();
         }
     }
 }

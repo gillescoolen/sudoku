@@ -38,7 +38,7 @@ namespace Sudoku.Domain.Builders
             board.Add(new Row());
         }
 
-        public Board GetProduct()
+        public Board GetResult()
         {
             var result = board;
             Reset();
